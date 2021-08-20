@@ -1,13 +1,11 @@
-<html lang="en">
-<head>
-<title>WOW!</title>
-</head>
-<body>
 <?php
 
-    echo "Hello everyone";
-?>
-<img src="https://media.giphy.com/media/sUNqplVFtsctW/giphy.gif" alt="" />
-</body>
-</html>
+//require_once(__DIR__ . '/../app/Container/Container.php');
 
+spl_autoload_register(function ($classname) {
+    require(__DIR__ . '../app/Container/' . $classname . '.php');
+});
+
+
+
+$container = new app\Container\Container();
