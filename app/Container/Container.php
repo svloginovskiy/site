@@ -27,35 +27,27 @@ class Container
             $parameters = $constructor->getParameters();
 
             $constructParamsArr = $this->rules[$name]->constructParams;
-            $constructParamsArrObj = new \ArrayObject($this->rules[$name]->constructParams);
-            $constructParamsIterator = $constructParamsArrObj->getIterator;
 
-            /*foreach ($parameters as $parameter) {
-                $paramType = $parameter->getType();
-                if (!($paramType instanceof ReflectionNamedType)) {
-                    throw new Exception('Non-typed parameter in constructor');
-                }
-                if (!$paramType->isBuiltin()) {
-                    $this->create($paramType);
-                } else {
-                    if ($constructParamsIterator->valid()) {
-
-                    }
-                }
-            }*/
-
+            $invokedParams = [];
             foreach ($parameters as $parameter) {
                 $paramName = $parameter->getName();
                 if (isset($constructParamsArr[$paramName])) {
-
+                    $invokedParams[] = $constructParamsArr[$paramName];
                 } else {
-
+                    $paramType = $parameter->getType();
+                    if (!($paramType instanceof ReflectionNamedType)) {
+                        throw new Exception('Non-typed parameter in constructor');
+                    } elseif (!$paramType->isBuiltin()) {
+                        $invokedParams[] = $this->create($paramType);
+                    } else {
+                        throw new Exception('Cannot find an argument for ' . $paramName);
+                    }
                 }
-
             }
-
+            $this->instances[$name] = $class->newInstanceArgs($invokedParams);
         } catch (ReflectionException $exception) {
         }
+        return $this->instances[$name];
     }
 
     public function addRules(array $rules)
