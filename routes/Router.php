@@ -1,37 +1,37 @@
 <?php
 
-namespace routes\Route;
+namespace routes;
 
-class Route
+class Router
 {
-    private static $routes = [];
+    private $routes = [];
 
-    public static function get(string $expression, callable $function)
+    public function get(string $expression, callable $function)
     {
-        self::$routes[] = ["expression" => $expression, "method" => "get", "function" => $function];
+        $this->routes[] = ["expression" => $expression, "method" => "get", "function" => $function];
     }
 
-    public static function post(string $expression, callable $function)
+    public function post(string $expression, callable $function)
     {
-        self::$routes[] = ["expression" => $expression, "method" => "post", "function" => $function];
+        $this->routes[] = ["expression" => $expression, "method" => "post", "function" => $function];
     }
 
-    public static function put(string $expression, callable $function)
+    public function put(string $expression, callable $function)
     {
-        self::$routes[] = ["expression" => $expression, "method" => "put", "function" => $function];
+        $this->routes[] = ["expression" => $expression, "method" => "put", "function" => $function];
     }
 
-    public static function patch(string $expression, callable $function)
+    public function patch(string $expression, callable $function)
     {
-        self::$routes[] = ["expression" => $expression, "method" => "patch", "function" => $function];
+        $this->routes[] = ["expression" => $expression, "method" => "patch", "function" => $function];
     }
 
-    public static function delete(string $expression, callable $function)
+    public function delete(string $expression, callable $function)
     {
-        self::$routes[] = ["expression" => $expression, "method" => "delete", "function" => $function];
+        $this->routes[] = ["expression" => $expression, "method" => "delete", "function" => $function];
     }
 
-    public static function run()
+    public function run()
     {
         $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
         $path = $parsedUrl['path'];
@@ -44,7 +44,7 @@ class Route
 
         $routeMatchFound = false;
 
-        foreach (self::$routes as $route) {
+        foreach ($this->routes as $route) {
             $expression = '^' . $route['expression'] . '$';
 
             if (preg_match('#' . $expression . '#', $path, $matches)) {

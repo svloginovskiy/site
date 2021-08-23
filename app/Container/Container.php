@@ -24,23 +24,25 @@ class Container
         try {
             $class = new ReflectionClass($name);
             $constructor = $class->getConstructor();
-            $parameters = $constructor->getParameters();
-
-            $constructParamsArr = $this->rules[$name]->constructParams;
-
             $invokedParams = [];
-            foreach ($parameters as $parameter) {
-                $paramName = $parameter->getName();
-                if (isset($constructParamsArr[$paramName])) {
-                    $invokedParams[] = $constructParamsArr[$paramName];
-                } else {
-                    $paramType = $parameter->getType();
-                    if (!($paramType instanceof ReflectionNamedType)) {
-                        throw new Exception('Non-typed parameter in constructor');
-                    } elseif (!$paramType->isBuiltin()) {
-                        $invokedParams[] = $this->create($paramType);
+            if (null !== $constructor) {
+                $parameters = $constructor->getParameters();
+
+                $constructParamsArr = $this->rules[$name]->constructParams;
+
+                foreach ($parameters as $parameter) {
+                    $paramName = $parameter->getName();
+                    if (isset($constructParamsArr[$paramName])) {
+                        $invokedParams[] = $constructParamsArr[$paramName];
                     } else {
-                        throw new Exception('Cannot find an argument for ' . $paramName);
+                        $paramType = $parameter->getType();
+                        if (!($paramType instanceof ReflectionNamedType)) {
+                            throw new Exception('Non-typed parameter in constructor');
+                        } elseif (!$paramType->isBuiltin()) {
+                            $invokedParams[] = $this->create($paramType->getName());
+                        } else {
+                            throw new Exception('Cannot find an argument for ' . $paramName);
+                        }
                     }
                 }
             }
