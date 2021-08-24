@@ -17,4 +17,4 @@ try {
     echo 'test';
     echo $exception . '</br>';
 }
-echo 'Hello';
+

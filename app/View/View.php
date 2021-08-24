@@ -10,7 +10,7 @@ class View
 
     public function render(string $page)
     {
-        include __DIR__ . '../../resources/' . $page;
+        include __DIR__ . '/../../resources/' . $page;
     }
 
 }
