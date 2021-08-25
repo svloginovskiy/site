@@ -28,7 +28,7 @@ class Container
             if (null !== $constructor) {
                 $parameters = $constructor->getParameters();
 
-                $constructParamsArr = $this->rules[$name]->constructParams;
+                $constructParamsArr = $this->rules[$name]['constructParams'];
 
                 foreach ($parameters as $parameter) {
                     $paramName = $parameter->getName();
@@ -55,5 +55,9 @@ class Container
     public function addRules(array $rules)
     {
         $this->rules = $rules + $this->rules;
+    }
+    public function addRule(string $name, array $rule)
+    {
+        $this->rules[$name] = $rule;
     }
 }
