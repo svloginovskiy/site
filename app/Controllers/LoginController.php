@@ -18,4 +18,9 @@ class LoginController
         $this->view->render("login.php");
     }
 
+    public function auth()
+    {
+
+    }
+
 }

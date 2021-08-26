@@ -7,7 +7,7 @@ require(__DIR__ . '/../autoload.php');
 $container = new app\Container\Container();
 
 $dbuser = 'vagrant';
-$dbpwd = '';
+$dbpwd = 'password';
 
 $container->addRule('PDO', ['constructParams' => [
     'dsn' => 'mysql:host=localhost;dbname=site',
@@ -16,14 +16,21 @@ $container->addRule('PDO', ['constructParams' => [
     'options' => [PDO::ATTR_PERSISTENT => true]
 ]]);
 
+
 try {
     $router = $container->create('routes\Router');
+
     $router->get('/login', function () use ($container) {
         $container->create('app\Controllers\LoginController')->show();
     });
+    $router->post('/login', function () use ($container) {
+        $container->create('app\Controllers\LoginController')->auth();
+    });
+
     $router->get('/entries/([1-9]\\d*)', function ($number) use ($container) {
         $container->create('app\Controllers\EntryController')->showEntry($number);
     });
+
     $router->run();
 } catch (Exception $exception) {
     echo $exception . '</br>';

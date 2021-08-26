@@ -12,13 +12,14 @@ class EntryRepository
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
-        $getEntryStatement = $pdo->prepare("SELECT * FROM entry WHERE id = ?");
+
     }
 
-    public function getEntryById(int $number): Entry
+    public function getEntryById(string $number): Entry
     {
-        $this->getEntryStatement->execute($number);
-        $result = $this->getEntryStatement->fetch(PDO::FETCH_LAZY);
+        $getEntryStatement = $this->pdo->prepare("SELECT * FROM entry WHERE id=?");
+        $getEntryStatement->execute([$number]);
+        $result = $getEntryStatement->fetch(PDO::FETCH_LAZY);
         return new Entry($result->text);
     }
 }
