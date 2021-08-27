@@ -30,6 +30,16 @@ function initRoutes(Container $container)
             }
         );
 
+        $router->pathNotFound(
+            function () use ($container) {
+                $container->create('\app\Service\View')->render('404.php');
+            }
+        );
+        $router->methodNotAllowed(
+            function () use ($container) {
+                $container->create('\app\Service\View')->render('405.php');
+            }
+        );
     } catch (Exception $e) {
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
-namespace routes;
+namespace app\Service;
 
 class Router
 {
     private $routes = [];
+    private $pathNotFound = null;
+    private $methodNotAllowed = null;
 
     public function get(string $expression, callable $function)
     {
@@ -31,11 +33,20 @@ class Router
         $this->routes[] = ["expression" => $expression, "method" => "delete", "function" => $function];
     }
 
+    public function pathNotFound(callable $function)
+    {
+        $this->pathNotFound = $function;
+    }
+
+    public function methodNotAllowed(callable $function)
+    {
+        $this->methodNotAllowed = $function;
+    }
+
     public function run()
     {
         $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
         $path = $parsedUrl['path'];
-
 
 
         $method = $_SERVER['REQUEST_METHOD'];
@@ -57,12 +68,17 @@ class Router
                     break;
                 }
             }
-
-            if (!$routeMatchFound) {
-                if ($pathMatchFound) {
-                    header("HTTP/1.0 405 Method Not Allowed");
-                } else {
-                    header("HTTP/1.0 404 Not Found");
+        }
+        if (!$routeMatchFound) {
+            if ($pathMatchFound) {
+                header("HTTP/1.0 405 Method Not Allowed");
+                if ($this->methodNotAllowed) {
+                    call_user_func($this->methodNotAllowed);
+                }
+            } else {
+                header("HTTP/1.0 404 Not Found");
+                if ($this->pathNotFound) {
+                    call_user_func($this->pathNotFound);
                 }
             }
         }
