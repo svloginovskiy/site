@@ -12,7 +12,7 @@
         div {
             text-align: left;
             border: 2px solid salmon;
-            margin: 10%;
+            width: 30%;
             padding: 12px;
         }
     </style>
