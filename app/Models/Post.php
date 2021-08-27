@@ -2,7 +2,7 @@
 
 namespace app\Models;
 
-class Entry
+class Post
 {
     private $text;
 

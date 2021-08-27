@@ -2,16 +2,16 @@
 
 namespace app\Controllers;
 
-use app\Models\Entry;
-use app\Repositories\EntryRepository;
+use app\Models\Post;
+use app\Repositories\PostRepository;
 use app\Service\View;
 
-class EntryController
+class PostController
 {
     private $view;
     private $entryRepo;
 
-    public function __construct(View $view, EntryRepository $entryRepo)
+    public function __construct(View $view, PostRepository $entryRepo)
     {
         $this->view = $view;
         $this->entryRepo = $entryRepo;
@@ -19,13 +19,13 @@ class EntryController
 
     public function showEntry(int $number)
     {
-        $entry = $this->entryRepo->getEntryById($number);
-        $text = $entry->getText();
+        $post = $this->entryRepo->getById($number);
+        $text = $post->getText();
         $vars = [
             ":num" => $number,
             ":text" => $text
         ];
-        $this->view->renderWithVars('entry.php', $vars);
+        $this->view->renderWithVars('post.php', $vars);
     }
 
 }
