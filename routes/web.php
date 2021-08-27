@@ -24,7 +24,7 @@ function initRoutes(Container $container)
         );
 
         $router->get(
-            '/entries/([1-9]\\d*)',
+            '/posts/([1-9]\\d*)',
             function ($number) use ($container) {
                 $container->create('app\Controllers\PostController')->showEntry($number);
             }
