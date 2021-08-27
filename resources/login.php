@@ -11,6 +11,8 @@
 
         div.form {
             text-align: left;
+            border: 2px solid salmon;
+            padding: 12px;
         }
     </style>
 </head>
