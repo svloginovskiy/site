@@ -3,33 +3,46 @@
 require(__DIR__ . '/../autoload.php');
 
 
-
 $container = new app\Container\Container();
 
 $dbuser = 'vagrant';
 $dbpwd = 'password';
 
-$container->addRule('PDO', ['constructParams' => [
-    'dsn' => 'mysql:host=localhost;dbname=site',
-    'username' => $dbuser,
-    'passwd' => $dbpwd,
-    'options' => [PDO::ATTR_PERSISTENT => true]
-]]);
+$container->addRule(
+    'PDO',
+    [
+        'constructParams' => [
+            'dsn' => 'mysql:host=localhost;dbname=site',
+            'username' => $dbuser,
+            'passwd' => $dbpwd,
+            'options' => [PDO::ATTR_PERSISTENT => true]
+        ]
+    ]
+);
 
 
 try {
     $router = $container->create('routes\Router');
 
-    $router->get('/login', function () use ($container) {
-        $container->create('app\Controllers\LoginController')->show();
-    });
-    $router->post('/login', function () use ($container) {
-        $container->create('app\Controllers\LoginController')->auth();
-    });
+    $router->get(
+        '/login',
+        function () use ($container) {
+            $container->create('app\Controllers\LoginController')->show();
+        }
+    );
+    $router->post(
+        '/login',
+        function () use ($container) {
+            $container->create('app\Controllers\LoginController')->auth();
+        }
+    );
 
-    $router->get('/entries/([1-9]\\d*)', function ($number) use ($container) {
-        $container->create('app\Controllers\EntryController')->showEntry($number);
-    });
+    $router->get(
+        '/entries/([1-9]\\d*)',
+        function ($number) use ($container) {
+            $container->create('app\Controllers\EntryController')->showEntry($number);
+        }
+    );
 
     $router->run();
 } catch (Exception $exception) {

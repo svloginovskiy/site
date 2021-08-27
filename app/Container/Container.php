@@ -56,6 +56,7 @@ class Container
     {
         $this->rules = $rules + $this->rules;
     }
+
     public function addRule(string $name, array $rule)
     {
         $this->rules[$name] = $rule;

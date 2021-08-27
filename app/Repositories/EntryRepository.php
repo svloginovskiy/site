@@ -9,10 +9,10 @@ class EntryRepository
 {
     private $pdo;
     private $getEntryStatement;
+
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
-
     }
 
     public function getEntryById(string $number): Entry
