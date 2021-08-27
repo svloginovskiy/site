@@ -2,14 +2,15 @@
 
 namespace app\Controllers;
 
-use View;
+
+use app\Repositories\UserRepository;
 
 class LoginController
 {
     private $view;
     private $userRepo;
 
-    public function __construct(\app\View\View $view, \app\Repositories\UserRepository $userRepo)
+    public function __construct(\app\Service\View $view, UserRepository $userRepo)
     {
         $this->view = $view;
         $this->userRepo = $userRepo;

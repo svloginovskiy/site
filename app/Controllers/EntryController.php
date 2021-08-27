@@ -3,13 +3,15 @@
 namespace app\Controllers;
 
 use app\Models\Entry;
+use app\Repositories\EntryRepository;
+use app\Service\View;
 
 class EntryController
 {
     private $view;
     private $entryRepo;
 
-    public function __construct(\app\View\View $view, \app\Repositories\EntryRepository $entryRepo)
+    public function __construct(View $view, EntryRepository $entryRepo)
     {
         $this->view = $view;
         $this->entryRepo = $entryRepo;
