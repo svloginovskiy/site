@@ -16,7 +16,7 @@ class PostRepository
 
     public function getById(string $number): Post
     {
-        $getPostStatement = $this->pdo->prepare("SELECT * FROM entry WHERE id=?");
+        $getPostStatement = $this->pdo->prepare("SELECT * FROM post WHERE id=?");
         $getPostStatement->execute([$number]);
         $result = $getPostStatement->fetch(PDO::FETCH_LAZY);
         return new Post($result->text);
