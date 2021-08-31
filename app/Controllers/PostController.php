@@ -21,9 +21,10 @@ class PostController
     {
         $post = $this->entryRepo->getById($number);
         $text = $post->getText();
+        $text = preg_replace("/\n/", '</p><p>', $text);
         $vars = [
-            ":num" => $number,
-            ":text" => $text
+            "num" => $number,
+            "text" => $text
         ];
         $this->view->renderWithVars('post', $vars);
     }

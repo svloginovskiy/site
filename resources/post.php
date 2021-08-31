@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-    <title>Post number :num</title>
+    <title>Post number <?=$num;?></title>
     <style>
         body {
             display: flex;
@@ -19,7 +19,7 @@
 </head>
 <body>
 <div>
-    <p>:text</p>
+    <p><?=$text;?></p>
 </div>
 </body>
 </html>
