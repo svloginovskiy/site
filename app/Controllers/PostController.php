@@ -25,7 +25,7 @@ class PostController
             ":num" => $number,
             ":text" => $text
         ];
-        $this->view->renderWithVars('post.php', $vars);
+        $this->view->renderWithVars('post', $vars);
     }
 
 }

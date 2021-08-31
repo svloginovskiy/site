@@ -23,7 +23,7 @@ class LoginController
         if ($_SESSION['logged_in']) {
             echo 'You are already logged in!';
         } else {
-            $this->view->render("login.php");
+            $this->view->render("login");
         }
     }
 
@@ -34,14 +34,14 @@ class LoginController
         $password = $_POST['password'];
         $user = $this->userRepo->getUserByName($name);
         if ($user == null) {
-            $this->view->render("login.php");
+            $this->view->render("login");
             echo 'No such username!';
             //} elseif (password_verify($password, $user->getPassword())) {
         } elseif ($password == $user->getPassword()) {
             $_SESSION['logged_in'] = true;
             header("Location: /login");
         } else {
-            $this->view->render("login.php");
+            $this->view->render("login");
             echo 'Wrong password!';
         }
     }

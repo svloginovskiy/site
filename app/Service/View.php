@@ -12,11 +12,13 @@ class View
 
     public function render(string $page)
     {
+        $page = $page . '.php';
         include $this->resDir . $page;
     }
 
     public function renderWithVars(string $page, array $vars)
     {
+        $page = $page . '.php';
         $file = file_get_contents($this->resDir . $page);
         foreach ($vars as $var => $value) {
             $var = '/' . $var . '/';
