@@ -2,7 +2,6 @@
 
 namespace app\Controllers;
 
-use app\Models\Post;
 use app\Repositories\PostRepository;
 use app\Service\View;
 
@@ -26,7 +25,7 @@ class PostController
             "num" => $number,
             "text" => $text
         ];
-        $this->view->renderWithVars('post', $vars);
+        $this->view->render('post', $vars);
     }
 
 }

@@ -10,15 +10,9 @@ class View
         $this->resDir = __DIR__ . '/../../resources/';
     }
 
-    public function render(string $page)
+    public function render(string $VIEWNAME, array $vars = [])
     {
-        $page = $page . '.php';
-        include $this->resDir . $page;
-    }
-
-    public function renderWithVars(string $page, array $vars)
-    {
-        $page = $page . '.php';
+        $page = $VIEWNAME . '.php';
         extract($vars);
         /*$file = file_get_contents($this->resDir . $page);
         foreach ($vars as $var => $value) {
