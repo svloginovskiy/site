@@ -16,7 +16,7 @@ class PostController
         $this->entryRepo = $entryRepo;
     }
 
-    public function showEntry(int $number)
+    public function show(int $number)
     {
         $post = $this->entryRepo->getById($number);
         $text = $post->getText();

@@ -26,18 +26,18 @@ function initRoutes(Container $container)
         $router->get(
             '/posts/([1-9]\\d*)',
             function ($number) use ($container) {
-                $container->create('app\Controllers\PostController')->showEntry($number);
+                $container->create('app\Controllers\PostController')->show($number);
             }
         );
 
         $router->pathNotFound(
             function () use ($container) {
-                $container->create('\app\Service\View')->render('404.php');
+                $container->create('\app\Service\View')->render('404');
             }
         );
         $router->methodNotAllowed(
             function () use ($container) {
-                $container->create('\app\Service\View')->render('405.php');
+                $container->create('\app\Service\View')->render('405');
             }
         );
     } catch (Exception $e) {
