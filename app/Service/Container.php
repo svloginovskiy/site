@@ -30,7 +30,7 @@ class Container
 
                 $constructParamsArr = $this->rules[$name]['constructParams'];
 
-                foreach ($parameters as $parameter) {
+                foreach ($parameters as $parameter) { //TODO move code into another function
                     $paramName = $parameter->getName();
                     if (isset($constructParamsArr[$paramName])) {
                         $invokedParams[] = $constructParamsArr[$paramName];

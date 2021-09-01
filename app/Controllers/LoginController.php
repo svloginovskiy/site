@@ -2,7 +2,6 @@
 
 namespace app\Controllers;
 
-
 use app\Repositories\UserRepository;
 use app\Service\View;
 
@@ -36,8 +35,7 @@ class LoginController
         if ($user == null) {
             $this->view->render("login");
             echo 'No such username!';
-            //} elseif (password_verify($password, $user->getPassword())) {
-        } elseif ($password == $user->getPassword()) {
+        } elseif ($password == $user->getPassword()) { //TODO password_verify($password, $user->getPassword())
             $_SESSION['logged_in'] = true;
             header("Location: /login");
         } else {
