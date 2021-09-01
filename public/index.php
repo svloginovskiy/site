@@ -12,5 +12,6 @@ routes\initRoutes($container);
 try {
     $container->create('\app\Service\Router')->run();
 } catch (Exception $e) {
+    error_log($e->getMessage());
 }
 

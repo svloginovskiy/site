@@ -37,17 +37,21 @@ class Container
                     } else {
                         $paramType = $parameter->getType();
                         if (!($paramType instanceof ReflectionNamedType)) {
-                            throw new Exception('Non-typed parameter in constructor');
+                            throw new Exception('Non-typed parameter in constructor of ' . $name);
                         } elseif (!$paramType->isBuiltin()) {
                             $invokedParams[] = $this->create($paramType->getName());
                         } else {
-                            throw new Exception('Cannot find an argument for ' . $paramName);
+                            throw new Exception(
+                                'Cannot find an argument for ' . $paramName .
+                                ' while creating an instance of ' . $name
+                            );
                         }
                     }
                 }
             }
             $this->instances[$name] = $class->newInstanceArgs($invokedParams);
         } catch (ReflectionException $exception) {
+            error_log($exception->getMessage());
         }
         return $this->instances[$name];
     }
