@@ -24,6 +24,19 @@ function initRoutes(Container $container)
         );
 
         $router->get(
+            '/signup',
+            function () use ($container) {
+                $container->create('\app\Controllers\SignupController')->show();
+            }
+        );
+        $router->post(
+            '/signup',
+            function () use ($container) {
+                $container->create('\app\Controllers\SignupController')->register();
+            }
+        );
+
+        $router->get(
             '/posts/([1-9]\\d*)',
             function ($number) use ($container) {
                 $container->create('app\Controllers\PostController')->show($number);
