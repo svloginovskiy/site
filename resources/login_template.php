@@ -13,7 +13,7 @@
                            name="password" required>
                     <label for="passwordInput">Password</label>
                 </div>
-                <button type="submit" class="btn btn-primary mb-3">Log in</button>
+                <button type="submit" class="btn btn-primary mb-3">Submit</button>
             </form>
         </div>
     </div>
