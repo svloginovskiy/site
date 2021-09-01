@@ -4,9 +4,12 @@
             <form class="form-floating " action="/signup" method="POST">
                 <h1>Sign up</h1>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="usernameInput" placeholder="username" name="name"
+                    <input type="text" class="form-control usernameInput" placeholder="username" name="name"
                            required>
                     <label for="usernameInput">Username</label>
+                    <div class="invalid-feedback">
+                        Username is already taken!
+                    </div>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="emailInput" placeholder="email"

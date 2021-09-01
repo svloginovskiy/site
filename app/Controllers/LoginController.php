@@ -20,7 +20,7 @@ class LoginController
     {
         session_start();
         if ($_SESSION['logged_in']) {
-            echo 'You are already logged in!';
+            echo 'You are already logged in!'; //TODO
         } else {
             $this->view->render("login");
         }
@@ -31,7 +31,7 @@ class LoginController
         session_start();
         $name = $_POST['name'];
         $password = $_POST['password'];
-        $user = $this->userRepo->getUserByName($name);
+        $user = $this->userRepo->getByName($name);
         if ($user == null) {
             $this->view->render("login");
             echo 'No such username!';
