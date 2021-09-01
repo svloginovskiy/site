@@ -4,16 +4,19 @@ namespace app\Service;
 
 class View
 {
-    private $resDir;
+    private const RES_DIR = __DIR__ . '/../../resources/';
+    private const TEMPLATE_SUFFIX = '_template.php';
+    private const HTML_BASE = self::RES_DIR . 'html_base' . self::TEMPLATE_SUFFIX;
     public function __construct()
     {
-        $this->resDir = __DIR__ . '/../../resources/';
     }
 
     public function render(string $VIEWNAME, array $vars = [])
     {
-        $page = $VIEWNAME . '.php';
+
+        $bodyTemplate = $VIEWNAME . self::TEMPLATE_SUFFIX;
+        $VIEWBODY = file_get_contents(self::RES_DIR . $bodyTemplate);
         extract($vars);
-        include $this->resDir . $page;
+        include self::HTML_BASE;
     }
 }
