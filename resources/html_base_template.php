@@ -1,10 +1,13 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title><?=$VIEWTITLE;?></title>
-    <link href="css/<?=$VIEWNAME . '.css';?>" rel="stylesheet" />
+    <title><?= isset($VIEWTITLE) ? $VIEWTITLE : $VIEWNAME . ' page'; ?></title>
+    <link href="/css/<?= file_exists('css/' . $VIEWNAME . '.css') ? $VIEWNAME . '.css' : 'default.css'; ?>"
+          rel="stylesheet"/>
 </head>
 <body>
-<?=$VIEWBODY;?>
+<?php
+include $VIEWBODY ?>
 </body>
 </html>
 

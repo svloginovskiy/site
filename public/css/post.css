@@ -3,13 +3,14 @@ html {
 }
 body {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 90%;
+    justify-content: center;
+    height: 100%;
 }
 
-div.form {
+div {
     text-align: left;
     border: 2px solid salmon;
+    width: 30%;
     padding: 12px;
 }

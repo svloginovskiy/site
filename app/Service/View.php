@@ -15,8 +15,8 @@ class View
     {
 
         $bodyTemplate = $VIEWNAME . self::TEMPLATE_SUFFIX;
-        $VIEWBODY = file_get_contents(self::RES_DIR . $bodyTemplate);
         extract($vars);
+        $VIEWBODY = self::RES_DIR . $bodyTemplate;
         include self::HTML_BASE;
     }
 }

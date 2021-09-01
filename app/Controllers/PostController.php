@@ -22,7 +22,7 @@ class PostController
         $text = $post->getText();
         $text = preg_replace("/\n/", '</p><p>', $text);
         $vars = [
-            "num" => $number,
+            "VIEWTITLE" => 'Post number ' . $number,
             "text" => $text
         ];
         $this->view->render('post', $vars);
