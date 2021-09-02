@@ -35,14 +35,17 @@ class SignupController
         $userByName = $this->userRepo->getByName($name);
         $userByEmail = $this->userRepo->getByEmail($email);
         $vars = [];
-
-
+        $vars['name'] = $name;
+        $this->view->render('signup_welcome', $vars);
         if (
             $userByName == null && $userByEmail == null && $this->isNameValid($name) &&
             $this->isPasswordValid($password) && $this->isEmailValid($email)
         ) {
+
             $user = new User(0, $name, $email, password_hash($password, PASSWORD_DEFAULT));
             $this->userRepo->save($user);
+            $vars['name'] = $name;
+            $this->view->render('signup_welcome', $vars);
         } else {
             $vars['isNameValid'] = $this->isNameValid($name);
             $vars['isPasswordValid'] = $this->isPasswordValid($password);

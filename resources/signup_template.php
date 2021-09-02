@@ -2,7 +2,7 @@
     <div class="row justify-content-md-center">
         <div class="col-md-auto border rounded m-3">
             <form class="form-floating " action="/signup" method="POST">
-                <h1>Sign up</h1>
+                <h1 class="fw-bold">Sign up</h1>
                 <div class="form-floating mb-3">
                     <input type="text"
                            class="form-control <?= isset($isNameValid) ? ($isNameValid && $isNameAvailable ? 'is-valid' : 'is-invalid') : '' ?> "
