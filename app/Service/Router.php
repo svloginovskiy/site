@@ -47,7 +47,7 @@ class Router
     {
         $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
         $path = $parsedUrl['path'];
-
+        $path = rtrim($path, '/');
 
         $method = $_SERVER['REQUEST_METHOD'];
 
