@@ -29,25 +29,53 @@ class SignupController
 
     public function register()
     {
-        $name = $_POST['name'];
+        $name = strtolower(trim($_POST['name']));
         $password = $_POST['password'];
-        $email = $_POST['email'];
+        $email = strtolower(trim($_POST['email']));
         $userByName = $this->userRepo->getByName($name);
         $userByEmail = $this->userRepo->getByEmail($email);
         $vars = [];
-        if ($userByName != null) {
-            $vars['isNameAvailable'] = false;
-        }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $vars['isEmailValid'] = false;
-        } elseif ($userByEmail != null) {
-            $vars['isEmailAvailable'] = false;
-        }
-        if ($userByName == null && $userByEmail == null) {
+
+
+        if (
+            $userByName == null && $userByEmail == null && $this->isNameValid($name) &&
+            $this->isPasswordValid($password) && $this->isEmailValid($email)
+        ) {
             $user = new User(0, $name, $email, password_hash($password, PASSWORD_DEFAULT));
             $this->userRepo->save($user);
         } else {
+            $vars['isNameValid'] = $this->isNameValid($name);
+            $vars['isPasswordValid'] = $this->isPasswordValid($password);
+            $vars['isEmailValid'] = $this->isEmailValid($email);
+            $vars['isNameAvailable'] = ($userByName == null);
+            $vars['isEmailAvailable'] = ($userByEmail == null);
+            $vars['name'] = $name;
+            $vars['email'] = $email;
+            $vars['password'] = $password;
             $this->view->render('signup', $vars);
         }
+    }
+
+    private function isNameValid($name): bool
+    {
+        $minNameLength = 3;
+        $maxNameLength = 30;
+        return strlen($name) >= $minNameLength &&
+            strlen($name) <= $maxNameLength &&
+            preg_match(
+                '#^\w+$#',
+                $name
+            ) == 1;
+    }
+
+    private function isEmailValid($email): bool
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    private function isPasswordValid($password): bool
+    {
+        $minPasswordLength = 8;
+        return strlen($password) >= $minPasswordLength;
     }
 }

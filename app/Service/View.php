@@ -18,5 +18,8 @@ class View
         extract($vars);
         $VIEWBODY = self::RES_DIR . $bodyTemplate;
         include self::HTML_BASE;
+        foreach ($vars as &$var) {
+            unset($var);
+        }
     }
 }
