@@ -39,10 +39,15 @@ function initRoutes(Container $container)
         $router->get(
             '/posts/([1-9]\\d*)',
             function ($number) use ($container) {
-                $container->create('app\Controllers\PostController')->show($number);
+                $container->create('\app\Controllers\PostController')->show($number);
             }
         );
-
+        $router->get(
+            '/submit',
+            function () use ($container) {
+                $container->create('\app\Controllers\SubmitController')->show();
+            }
+        );
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');
