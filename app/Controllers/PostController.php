@@ -19,13 +19,17 @@ class PostController
     public function show(int $number)
     {
         $post = $this->entryRepo->getById($number);
-        $text = $post->getText();
-        $text = preg_replace("/\n/", '</p><p>', $text);
-        $vars = [
-            "VIEWTITLE" => 'Post number ' . $number,
-            "text" => $text
-        ];
-        $this->view->render('post', $vars);
+        if ($post == null) {
+            $this->view->render('404');
+        } else {
+            $text = $post->getText();
+            $text = preg_replace("/\n/", '</p><p>', $text);
+            $vars = [
+                "VIEWTITLE" => 'Post number ' . $number,
+                "text" => $text
+            ];
+            $this->view->render('post', $vars);
+        }
     }
 
 }

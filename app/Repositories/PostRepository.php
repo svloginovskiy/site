@@ -14,11 +14,15 @@ class PostRepository
         $this->pdo = $pdo;
     }
 
-    public function getById(string $number): Post
+    public function getById(string $number): ?Post
     {
         $getPostStatement = $this->pdo->prepare("SELECT * FROM post WHERE id=?");
         $getPostStatement->execute([$number]);
         $result = $getPostStatement->fetch(PDO::FETCH_LAZY);
-        return new Post($result->text);
+        if ($result === false) {
+            return null;
+        } else {
+            return new Post($result->text);
+        }
     }
 }
