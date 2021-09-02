@@ -39,7 +39,7 @@ class UserRepository
     public function save(User $user)
     {
         $insertUserStatement = $this->pdo->prepare("INSERT INTO user VALUES(?, ?, ?, ?)");
-        $insertUserStatement->execute($user->getId(), $user->getName(), $user->getEmail(), $user->getPassword());
+        $insertUserStatement->execute([$user->getId(), $user->getName(), $user->getEmail(), $user->getPassword()]);
     }
 
 }
