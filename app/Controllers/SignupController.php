@@ -21,9 +21,9 @@ class SignupController
     {
         session_start();
         if ($_SESSION['logged_in']) {
-            header("Location: /posts/1");
+            header('Location: /posts/1');
         } else {
-            $this->view->render("signup");
+            $this->view->render('signup');
         }
     }
 
