@@ -21,7 +21,7 @@ class SignupController
     {
         session_start();
         if ($_SESSION['logged_in']) {
-            echo 'You are logged in!'; //TODO
+            header("Location: /posts/1");
         } else {
             $this->view->render("signup");
         }

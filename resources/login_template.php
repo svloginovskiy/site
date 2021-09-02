@@ -4,12 +4,17 @@
             <form class="form-floating " action="/login" method="POST">
                 <h1>Log in</h1>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="usernameInput" placeholder="username" name="name"
+                    <input type="text" class="form-control <?= $authFailed ? 'is-invalid' : '' ?>" id="usernameInput"
+                           placeholder="username" name="name"
                            required>
                     <label for="usernameInput">Username</label>
+                    <div class="invalid-feedback">
+                        Username or password are incorrect!
+                    </div>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="passwordInput" placeholder="password"
+                    <input type="password" class="form-control <?= $authFailed ? 'is-invalid' : '' ?>"
+                           id="passwordInput" placeholder="password"
                            name="password" required>
                     <label for="passwordInput">Password</label>
                 </div>
