@@ -1,6 +1,6 @@
 <div class="container overflow-hidden">
     <div class="row justify-content-md-center">
-        <div class="col-md-auto border rounded m-3">
+        <div class="col-md-auto border rounded m-3 shadow">
             <form class="form-floating " action="/login" method="POST">
                 <h1 class="fw-bold">Log in</h1>
                 <div class="form-floating mb-3">
