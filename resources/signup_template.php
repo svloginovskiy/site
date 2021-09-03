@@ -6,7 +6,8 @@
                 <div class="form-floating mb-3">
                     <input type="text"
                            class="form-control <?= isset($isNameValid) ? ($isNameValid && $isNameAvailable ? 'is-valid' : 'is-invalid') : '' ?> "
-                           id="usernameInput" placeholder="username" name="name" <?= isset($name) ? "value=\"$name\"" : '' ?>
+                           id="usernameInput" placeholder="username"
+                           name="name" <?= isset($name) ? "value=\"$name\"" : '' ?>
                            required>
                     <label for="usernameInput">Username</label>
                     <div class="invalid-feedback">
@@ -32,7 +33,8 @@
                 <div class="form-floating mb-3">
                     <input type="password"
                            class="form-control <?= isset($isPasswordValid) ? ($isPasswordValid ? 'is-valid' : 'is-invalid') : '' ?>"
-                           id="passwordInput" placeholder="password" <?= isset($password) ? "value=\"$password\"" : '' ?>
+                           id="passwordInput"
+                           placeholder="password" <?= isset($password) ? "value=\"$password\"" : '' ?>
                            name="password" required>
                     <label for="passwordInput">Password</label>
                     <div class="invalid-feedback">
