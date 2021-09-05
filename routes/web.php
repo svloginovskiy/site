@@ -48,6 +48,12 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\SubmitController')->show();
             }
         );
+        $router->post(
+            '/submit',
+            function () use ($container) {
+                $container->create('\app\Controllers\SubmitController')->savePost();
+        });
+
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');

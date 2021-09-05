@@ -22,7 +22,13 @@ class PostRepository
         if ($result === false) {
             return null;
         } else {
-            return new Post($result->text);
+            return new Post($result->id, $result->text, $result->title, $result->user_id);
         }
+    }
+
+    public function save(Post $post)
+    {
+        $insertPostStatement = $this->pdo->prepare("INSERT INTO post VALUES(?, ?, ?, ?)");
+        $insertPostStatement->execute([0, $post->getText(),  $post->getUserId(), $post->getTitle()]);
     }
 }

@@ -20,7 +20,7 @@ class LoginController
     {
         session_start();
         if ($_SESSION['logged_in']) {
-            header("Location: /posts/1"); //TODO
+            header("Location: /submit"); //TODO
         } else {
             $this->view->render("login");
         }
@@ -37,6 +37,7 @@ class LoginController
         } elseif (password_verify($password, $user->getPassword())) {
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $name;
+            $_SESSION['user_id'] = $user->getId();
             header("Location: /login");
         } else {
             $this->view->render("login", ['authFailed' => true]);
