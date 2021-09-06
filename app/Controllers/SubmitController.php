@@ -39,10 +39,11 @@ class SubmitController
             }
             $userId = $_SESSION['user_id'];
             if ($this->handleUploadedFile() != null) {
-                $text .= "</p> <img src=\"$imagesDir" . $_FILES['image']['name'] . "\" alt=\"image\" > <p>";
+                $text .= "</p> <img src=\"$imagesDir" . $_FILES['image']['name'] . "\" class=\"img-fluid\" alt=\"image\" > <p>";
             }
             $post = new Post(0, $text, $title, $userId);
-            $this->postRepo->save($post);
+            $id = $this->postRepo->save($post);
+            Header('Location: /posts/' . $id);
         } else {
             header('Location: /login');
         }

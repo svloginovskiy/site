@@ -26,9 +26,14 @@ class PostRepository
         }
     }
 
-    public function save(Post $post)
+    public function save(Post $post): int
     {
         $insertPostStatement = $this->pdo->prepare("INSERT INTO post VALUES(?, ?, ?, ?)");
         $insertPostStatement->execute([0, $post->getText(),  $post->getUserId(), $post->getTitle()]);
+        $countStatement = $this->pdo->prepare("SELECT count(id) FROM post");
+        $countStatement->execute();
+        $result = $countStatement->fetch();
+        return $result[0];
     }
+
 }
