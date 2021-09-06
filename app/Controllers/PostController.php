@@ -23,9 +23,11 @@ class PostController
             $this->view->render('404');
         } else {
             $text = $post->getText();
+            $title = $post->getTitle();
             $text = preg_replace("/\n/", '</p><p>', $text);
             $vars = [
                 "VIEWTITLE" => 'Post number ' . $number,
+                'title' => $title,
                 "text" => $text
             ];
             $this->view->render('post', $vars);
