@@ -49,11 +49,17 @@ class SubmitController
         }
     }
 
-    private function handleUploadedFile() : ?string
+    private function handleUploadedFile(): ?string
     {
         $uploadDir = __DIR__ . '/../../public/images/';
         $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile) || file_exists($uploadFile)) {
+        if (
+            !empty($_FILES['image']['name']) &&
+            (move_uploaded_file(
+                $_FILES['image']['tmp_name'],
+                $uploadFile
+            ) || file_exists($uploadFile))
+        ) {
             return $uploadFile;
         } else {
             return null;
