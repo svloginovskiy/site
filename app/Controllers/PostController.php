@@ -24,7 +24,7 @@ class PostController
         } else {
             $text = $post->getText();
             $title = $post->getTitle();
-            $text = preg_replace("/\n/", '</p><p>', $text);
+
             $vars = [
                 "VIEWTITLE" => $title,
                 'title' => $title,

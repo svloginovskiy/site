@@ -37,6 +37,7 @@ class SubmitController
             if (!$this->isTextValid($text)) {
                 $this->view->render('submit', ['title' => $title, 'text' => $text, 'isTextValid' => false]);
             }
+            $text = preg_replace("/\n/", '</p>\n<p>', $text);
             $userId = $_SESSION['user_id'];
             if ($this->handleUploadedFile() != null) {
                 $text .= "</p> <img src=\"$imagesDir" . $_FILES['image']['name'] . "\" class=\"img-fluid\" alt=\"image\" > <p>";
