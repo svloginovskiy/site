@@ -49,7 +49,7 @@ class SubmitController
     {
         $uploadDir = __DIR__ . '/../../public/images/';
         $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile) || file_exists($uploadFile)) {
             return $uploadFile;
         } else {
             return null;
