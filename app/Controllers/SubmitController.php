@@ -34,6 +34,9 @@ class SubmitController
         if ($_SESSION['logged_in']) {
             $text = htmlspecialchars($_POST['text']);
             $title = htmlspecialchars($_POST['title']);
+            if (!$this->isTextValid($text)) {
+                $this->view->render('submit', ['title' => $title, 'text' => $text, 'isTextValid' => false]);
+            }
             $userId = $_SESSION['user_id'];
             if ($this->handleUploadedFile() != null) {
                 $text .= "</p> <img src=\"$imagesDir" . $_FILES['image']['name'] . "\" alt=\"image\" > <p>";
@@ -54,5 +57,11 @@ class SubmitController
         } else {
             return null;
         }
+    }
+
+    private function isTextValid(string $text): bool
+    {
+        $MAX_TEXT_SIZE = 65000;
+        return strlen($text) < $MAX_TEXT_SIZE;
     }
 }

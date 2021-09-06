@@ -4,13 +4,19 @@
             <form class="form-floating pt-3" action="/submit" method="POST" enctype="multipart/form-data">
                 <div class="form-floating mb-1">
                     <input type="text" class="form-control border-0 fw-bold" id="postTitle"
-                           placeholder="Title" name="title"
+                           placeholder="Title" name="title" value="<?= $title ?? '' ?>"
                            required>
                     <label class="text-muted fw-bold" for="postTitle">Enter title</label>
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control border-0" placeholder="Enter text" id="postText"
-                              style="height: 10rem; resize: none" name="text"></textarea>
+                    <textarea
+                            class="form-control border-0 <?= isset($isTextValid) ? ($isTextValid ? 'is-valid' : 'is-invalid') : '' ?>"
+                            placeholder="Enter text"
+                            id="postText"
+                            style="height: 10rem; resize: none" name="text"><?= $text ?? '' ?></textarea>
+                    <div class="invalid-feedback">
+                        Text should contain less than 65000 symbols! Also you might need to reupload your image.
+                    </div>
                 </div>
                 <div class="d-flex">
                     <button type="submit" class="btn btn-primary mb-3">Submit</button>
@@ -22,8 +28,9 @@
                                 <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
                             </svg>
                         </label>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-                        <input class="form-control invisible" type="file" accept="image/*" style="position: absolute; top: 0;"
+                        <input type="hidden" name="MAX_FILE_SIZE" value="10000000"/>
+                        <input class="form-control invisible" type="file" accept="image/*"
+                               style="position: absolute; top: 0;"
                                id="fileInput" name="image">
                     </div>
                 </div>
