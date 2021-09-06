@@ -8,10 +8,9 @@
                            required>
                     <label class="text-muted fw-bold" for="postTitle">Enter title</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <textarea class="form-control border-0" placeholder="Leave a comment here" id="postText"
+                <div class="mb-3">
+                    <textarea class="form-control border-0" placeholder="Enter text" id="postText"
                               style="height: 10rem; resize: none" name="text"></textarea>
-                    <label class="text-muted fw-bold" for="postText">Enter text</label>
                 </div>
                 <div class="d-flex">
                     <button type="submit" class="btn btn-primary mb-3">Submit</button>
