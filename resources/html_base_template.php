@@ -16,7 +16,8 @@
 <body>
 <main>
     <?php
-    include $VIEWBODY ?>
+    include $VIEWHEADER;
+    include $VIEWBODY; ?>
 </main>
 </body>
 </html>
