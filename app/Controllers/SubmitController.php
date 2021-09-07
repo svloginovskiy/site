@@ -37,10 +37,11 @@ class SubmitController
             if (!$this->isTextValid($text)) {
                 $this->view->render('submit', ['title' => $title, 'text' => $text, 'isTextValid' => false]);
             }
-            $text = preg_replace("/\n/", '</p>\n<p>', $text);
+            $text = preg_replace("/\n(?!$)/", '</p><p>', $text);
+            $text = '<p>' . $text . '</p>';
             $userId = $_SESSION['user_id'];
             if ($this->handleUploadedFile() != null) {
-                $text .= "</p> <img src=\"$imagesDir" . $_FILES['image']['name'] . "\" class=\"img-fluid\" alt=\"image\" > <p>";
+                $text .= "<img src=\"$imagesDir" . $_FILES['image']['name'] . "\" class=\"img-fluid\" alt=\"image\">";
             }
             $post = new Post(0, $text, $title, $userId);
             $id = $this->postRepo->save($post);
