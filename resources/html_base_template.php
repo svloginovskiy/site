@@ -14,9 +14,10 @@
     </style>
 </head>
 <body>
-
-<?php
-include $VIEWBODY ?>
+<main>
+    <?php
+    include $VIEWBODY ?>
+</main>
 </body>
 </html>
 
