@@ -52,7 +52,15 @@ function initRoutes(Container $container)
             '/submit',
             function () use ($container) {
                 $container->create('\app\Controllers\SubmitController')->savePost();
-        });
+            }
+        );
+
+        $router->get(
+            '/',
+            function () use ($container) {
+                $container->create('app\Controllers\FrontpageController')->show();
+            }
+        );
 
         $router->pathNotFound(
             function () use ($container) {

@@ -8,17 +8,17 @@ use app\Service\View;
 class PostController
 {
     private $view;
-    private $entryRepo;
+    private $postRepo;
 
-    public function __construct(View $view, PostRepository $entryRepo)
+    public function __construct(View $view, PostRepository $postRepo)
     {
         $this->view = $view;
-        $this->entryRepo = $entryRepo;
+        $this->postRepo = $postRepo;
     }
 
     public function show(int $number)
     {
-        $post = $this->entryRepo->getById($number);
+        $post = $this->postRepo->getById($number);
         if ($post == null) {
             $this->view->render('404');
         } else {
