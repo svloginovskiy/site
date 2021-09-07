@@ -41,7 +41,7 @@ class SubmitController
             $text = '<p>' . $text . '</p>';
             $userId = $_SESSION['user_id'];
             if ($this->handleUploadedFile() != null) {
-                $text .= "<img src=\"$imagesDir" . $_FILES['image']['name'] . "\" class=\"img-fluid\" alt=\"image\">";
+                $text .= "<img src=\"$imagesDir" . $_FILES['image']['name'] . "\" class=\"img-fluid mb-3\" alt=\"image\">";
             }
             $post = new Post(0, $text, $title, $userId);
             $id = $this->postRepo->save($post);
