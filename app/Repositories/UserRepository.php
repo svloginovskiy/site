@@ -15,7 +15,7 @@ class UserRepository
 
     public function getByName(string $name): ?User
     {
-        $getUserStatement = $this->pdo->prepare("SELECT * FROM user WHERE name=?");
+        $getUserStatement = $this->pdo->prepare('SELECT * FROM user WHERE name=?');
         $getUserStatement->execute([$name]);
         $result = $getUserStatement->fetch(PDO::FETCH_LAZY);
         if ($result === false) {
@@ -26,7 +26,7 @@ class UserRepository
     }
     public function getById(string $id): ?User
     {
-        $getUserStatement = $this->pdo->prepare("SELECT * FROM user WHERE id=?");
+        $getUserStatement = $this->pdo->prepare('SELECT * FROM user WHERE id=?');
         $getUserStatement->execute([$id]);
         $result = $getUserStatement->fetch(PDO::FETCH_LAZY);
         if ($result === false) {
@@ -38,7 +38,7 @@ class UserRepository
 
     public function getByEmail(string $email): ?User
     {
-        $getUserStatement = $this->pdo->prepare("SELECT * FROM user WHERE email=?");
+        $getUserStatement = $this->pdo->prepare('SELECT * FROM user WHERE email=?');
         $getUserStatement->execute([$email]);
         $result = $getUserStatement->fetch(PDO::FETCH_LAZY);
         if ($result === false) {
@@ -49,7 +49,7 @@ class UserRepository
     }
     public function save(User $user)
     {
-        $insertUserStatement = $this->pdo->prepare("INSERT INTO user VALUES(?, ?, ?, ?)");
+        $insertUserStatement = $this->pdo->prepare('INSERT INTO user VALUES(?, ?, ?, ?)');
         $insertUserStatement->execute([$user->getId(), $user->getName(), $user->getEmail(), $user->getPassword()]);
     }
 

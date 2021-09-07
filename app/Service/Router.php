@@ -71,12 +71,12 @@ class Router
         }
         if (!$routeMatchFound) {
             if ($pathMatchFound) {
-                header("HTTP/1.0 405 Method Not Allowed");
+                header('HTTP/1.0 405 Method Not Allowed');
                 if ($this->methodNotAllowed) {
                     call_user_func($this->methodNotAllowed);
                 }
             } else {
-                header("HTTP/1.0 404 Not Found");
+                header('HTTP/1.0 404 Not Found');
                 if ($this->pathNotFound) {
                     call_user_func($this->pathNotFound);
                 }

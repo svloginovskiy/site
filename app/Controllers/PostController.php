@@ -26,9 +26,9 @@ class PostController
             $title = $post->getTitle();
 
             $vars = [
-                "VIEWTITLE" => $title,
+                'VIEWTITLE' => $title,
                 'title' => $title,
-                "text" => $text
+                'text' => $text
             ];
             $this->view->render('post', $vars);
         }

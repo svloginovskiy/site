@@ -22,7 +22,7 @@ class LoginController
         if ($_SESSION['logged_in']) {
             header("Location: /submit"); //TODO
         } else {
-            $this->view->render("login");
+            $this->view->render('login');
         }
     }
 
@@ -33,14 +33,14 @@ class LoginController
         $password = $_POST['password'];
         $user = $this->userRepo->getByName($name);
         if ($user == null) {
-            $this->view->render("login", ['authFailed' => true]);
+            $this->view->render('login', ['authFailed' => true]);
         } elseif (password_verify($password, $user->getPassword())) {
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $name;
             $_SESSION['user_id'] = $user->getId();
-            header("Location: /login");
+            header('Location: /login');
         } else {
-            $this->view->render("login", ['authFailed' => true]);
+            $this->view->render('login', ['authFailed' => true]);
         }
     }
 }

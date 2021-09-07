@@ -37,7 +37,7 @@ class SubmitController
             if (!$this->isTextValid($text)) {
                 $this->view->render('submit', ['title' => $title, 'text' => $text, 'isTextValid' => false]);
             }
-            $text = preg_replace("/\n(?!$)/", '</p><p>', $text);
+            $text = preg_replace('/\n(?!$)/', '</p><p>', $text);
             $text = '<p>' . $text . '</p>';
             $userId = $_SESSION['user_id'];
             if ($this->handleUploadedFile() != null) {

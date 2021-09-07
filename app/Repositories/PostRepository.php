@@ -16,7 +16,7 @@ class PostRepository
 
     public function getById(string $number): ?Post
     {
-        $getPostStatement = $this->pdo->prepare("SELECT * FROM post WHERE id=?");
+        $getPostStatement = $this->pdo->prepare('SELECT * FROM post WHERE id=?');
         $getPostStatement->execute([$number]);
         $result = $getPostStatement->fetch(PDO::FETCH_LAZY);
         if ($result === false) {
@@ -28,9 +28,9 @@ class PostRepository
 
     public function save(Post $post): int
     {
-        $insertPostStatement = $this->pdo->prepare("INSERT INTO post VALUES(?, ?, ?, ?)");
+        $insertPostStatement = $this->pdo->prepare('INSERT INTO post VALUES(?, ?, ?, ?)');
         $insertPostStatement->execute([0, $post->getText(),  $post->getUserId(), $post->getTitle()]);
-        $countStatement = $this->pdo->prepare("SELECT count(id) FROM post");
+        $countStatement = $this->pdo->prepare('SELECT count(id) FROM post');
         $countStatement->execute();
         $result = $countStatement->fetch();
         return $result[0];
