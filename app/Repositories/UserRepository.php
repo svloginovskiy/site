@@ -24,7 +24,7 @@ class UserRepository
             return new User($result->id, $result->name, $result->email, $result->password);
         }
     }
-    public function getById(string $id): ?User
+    public function getById(string $id): ?User //TODO parent class Repository
     {
         $getUserStatement = $this->pdo->prepare('SELECT * FROM user WHERE id=?');
         $getUserStatement->execute([$id]);
@@ -47,7 +47,7 @@ class UserRepository
             return new User($result->id, $result->name, $result->email, $result->password);
         }
     }
-    public function save(User $user)
+    public function save(User $user) //TODO move to parent class Repository
     {
         $insertUserStatement = $this->pdo->prepare('INSERT INTO user VALUES(?, ?, ?, ?)');
         $insertUserStatement->execute([$user->getId(), $user->getName(), $user->getEmail(), $user->getPassword()]);

@@ -26,7 +26,7 @@ class PostRepository
         }
     }
 
-    public function save(Post $post): int
+    public function save(Post $post): int //TODO move to parent class Repository
     {
         $insertPostStatement = $this->pdo->prepare('INSERT INTO post VALUES(?, ?, ?, ?)');
         $insertPostStatement->execute([0, $post->getText(),  $post->getUserId(), $post->getTitle()]);
