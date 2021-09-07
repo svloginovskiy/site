@@ -3,10 +3,15 @@
         <div class="submit-form col-md-auto border rounded m-3 shadow">
             <form class="form-floating pt-3" action="/submit" method="POST" enctype="multipart/form-data">
                 <div class="form-floating mb-1">
-                    <input type="text" class="form-control border-0 fw-bold" id="postTitle"
+                    <input type="text"
+                           class="form-control border-0 fw-bold <?= isset($isTitleValid) ? ($isTitleValid ? 'is-valid' : 'is-invalid') : '' ?>"
+                           id="postTitle"
                            placeholder="Title" name="title" value="<?= $title ?? '' ?>"
                            required>
                     <label class="text-muted fw-bold" for="postTitle">Enter title</label>
+                    <div class="invalid-feedback">
+                        Title should contain less than 80 symbols! Also you might need to reupload your image.
+                    </div>
                 </div>
                 <div class="mb-3">
                     <textarea

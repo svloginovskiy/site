@@ -36,6 +36,10 @@ class SubmitController
             $title = htmlspecialchars($_POST['title']);
             if (!$this->isTextValid($text)) {
                 $this->view->render('submit', ['title' => $title, 'text' => $text, 'isTextValid' => false]);
+                return;
+            } elseif (!$this->isTitleValid($title)) {
+                $this->view->render('submit', ['title' => $title, 'text' => $text, 'isTitleValid' => false]);
+                return;
             }
             $text = preg_replace('/\n(?!$)/', '</p><p>', $text);
             $text = '<p>' . $text . '</p>';
@@ -72,5 +76,11 @@ class SubmitController
     {
         $MAX_TEXT_SIZE = 65000;
         return strlen($text) < $MAX_TEXT_SIZE;
+    }
+
+    private function isTitleValid(string $title): bool
+    {
+        $MAX_TITLE_SIZE = 80;
+        return strlen($title) < $MAX_TITLE_SIZE;
     }
 }
