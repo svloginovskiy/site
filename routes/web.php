@@ -54,6 +54,12 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\SubmitController')->savePost();
             }
         );
+        $router->get(
+            '/logout',
+            function () use ($container) {
+                $container->create('\app\Controllers\LogoutController')->logout();
+            }
+        );
 
         $router->get(
             '/',
