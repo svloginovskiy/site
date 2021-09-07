@@ -24,6 +24,17 @@ class UserRepository
             return new User($result->id, $result->name, $result->email, $result->password);
         }
     }
+    public function getById(string $id): ?User
+    {
+        $getUserStatement = $this->pdo->prepare("SELECT * FROM user WHERE id=?");
+        $getUserStatement->execute([$id]);
+        $result = $getUserStatement->fetch(PDO::FETCH_LAZY);
+        if ($result === false) {
+            return null;
+        } else {
+            return new User($result->id, $result->name, $result->email, $result->password);
+        }
+    }
 
     public function getByEmail(string $email): ?User
     {
