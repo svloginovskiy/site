@@ -6,14 +6,14 @@
                 <?= $text; ?>
             </article>
             <div class="d-flex">
-                <div class="ms-auto d-flex">
-                    <div class id="rateUpIcon">
+                <div class="ms-auto d-flex" id="rateDiv">
+                    <div class id="rateUpDiv">
                         <i class="bi bi-arrow-up-square"></i>
                     </div>
-                    <div>
+                    <div id="rating">
                         <?= $rating; ?>
                     </div>
-                    <div id="rateDownIcon">
+                    <div id="rateDownDiv">
                         <i class="bi bi-arrow-down-square"></i>
                     </div>
                 </div>
