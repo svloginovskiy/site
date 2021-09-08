@@ -28,8 +28,8 @@ class PostRepository
 
     public function save(Post $post): int //TODO move to parent class Repository
     {
-        $insertPostStatement = $this->pdo->prepare('INSERT INTO post VALUES(?, ?, ?, ?)');
-        $insertPostStatement->execute([0, $post->getText(),  $post->getUserId(), $post->getTitle()]);
+        $insertPostStatement = $this->pdo->prepare('INSERT INTO post VALUES(?, ?, ?, ?, ?)');
+        $insertPostStatement->execute([0, $post->getText(), $post->getUserId(), $post->getTitle(), $post->getRating()]);
         $countStatement = $this->pdo->prepare('SELECT count(id) FROM post');
         $countStatement->execute();
         $result = $countStatement->fetch();

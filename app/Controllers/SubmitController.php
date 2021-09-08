@@ -45,7 +45,8 @@ class SubmitController
             $text = '<p>' . $text . '</p>';
             $userId = $_SESSION['user_id'];
             if ($this->handleUploadedFile() != null) {
-                $text .= "<img src=\"$imagesDir" . $_FILES['image']['name'] . "\" class=\"img-fluid mb-3 mx-auto d-block\" alt=\"image\">";
+                $text .= "<img src=\"$imagesDir" . $_FILES['image']['name'] .
+                    "\" class=\"img-fluid mb-3 mx-auto d-block\" alt=\"image\">";
             }
             $post = new Post(0, $text, $title, $userId);
             $id = $this->postRepo->save($post);
@@ -62,9 +63,9 @@ class SubmitController
         if (
             !empty($_FILES['image']['name']) &&
             (move_uploaded_file(
-                $_FILES['image']['tmp_name'],
-                $uploadFile
-            ) || file_exists($uploadFile))
+                    $_FILES['image']['tmp_name'],
+                    $uploadFile
+                ) || file_exists($uploadFile))
         ) {
             return $uploadFile;
         } else {
