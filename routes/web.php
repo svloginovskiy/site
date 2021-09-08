@@ -60,7 +60,12 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\LogoutController')->logout();
             }
         );
-
+        $router->get(
+            '/about',
+            function () use ($container) {
+                $container->create('\app\Controllers\AboutController')->show();
+            }
+        );
         $router->get(
             '/',
             function () use ($container) {
