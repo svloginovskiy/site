@@ -22,7 +22,7 @@ class PostRepository
         if ($result === false) {
             return null;
         } else {
-            return new Post($result->id, $result->text, $result->title, $result->user_id);
+            return new Post($result->id, $result->text, $result->title, $result->user_id, $result->rating);
         }
     }
 

@@ -24,11 +24,12 @@ class PostController
         } else {
             $text = $post->getText();
             $title = $post->getTitle();
-
+            $rating = $post->getRating();
             $vars = [
                 'VIEWTITLE' => $title,
                 'title' => $title,
-                'text' => $text
+                'text' => $text,
+                'rating' => $rating
             ];
             $this->view->render('post', $vars);
         }

@@ -8,14 +8,15 @@ class Post
     private $text;
     private $title;
     private $userId;
-    private $rating = 1;
+    private $rating;
 
-    public function __construct(int $id, string $text, string $title, int $userId)
+    public function __construct(int $id, string $text, string $title, int $userId, int $rating)
     {
         $this->id = $id;
         $this->text = $text;
         $this->title = $title;
         $this->userId = $userId;
+        $this->rating = $rating;
     }
 
     public function getText(): string

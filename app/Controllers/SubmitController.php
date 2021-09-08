@@ -34,6 +34,7 @@ class SubmitController
         if ($_SESSION['logged_in']) {
             $text = htmlspecialchars($_POST['text']);
             $title = htmlspecialchars($_POST['title']);
+            $default_rating = 1;
             if (!$this->isTextValid($text)) {
                 $this->view->render('submit', ['title' => $title, 'text' => $text, 'isTextValid' => false]);
                 return;
@@ -48,7 +49,7 @@ class SubmitController
                 $text .= "<img src=\"$imagesDir" . $_FILES['image']['name'] .
                     "\" class=\"img-fluid mb-3 mx-auto d-block\" alt=\"image\">";
             }
-            $post = new Post(0, $text, $title, $userId);
+            $post = new Post(0, $text, $title, $userId, $default_rating);
             $id = $this->postRepo->save($post);
             Header('Location: /posts/' . $id);
         } else {
