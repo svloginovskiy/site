@@ -67,7 +67,7 @@ function initRoutes(Container $container)
             }
         );
         $router->get(
-            '/',
+            '',
             function () use ($container) {
                 $container->create('\app\Controllers\FrontpageController')->show();
             }

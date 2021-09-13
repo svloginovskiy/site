@@ -30,10 +30,25 @@ class PostRepository
     {
         $insertPostStatement = $this->pdo->prepare('INSERT INTO post VALUES(?, ?, ?, ?)');
         $insertPostStatement->execute([0, $post->getText(), $post->getUserId(), $post->getTitle()]);
-        $countStatement = $this->pdo->prepare('SELECT count(id) FROM post');
-        $countStatement->execute();
-        $result = $countStatement->fetch();
+        return $this->getPostsCount();
+    }
+
+    public function getPostsCount(): int
+    {
+        $selectStatement = $this->pdo->prepare('SELECT COUNT(id) FROM post');
+        $selectStatement->execute([]);
+        $result = $selectStatement->fetch();
         return $result[0];
     }
 
+    public function getByIdRange(int $from, int $to)
+    {
+        if ($from > $to) {
+            return null;
+        }
+        $selectStatement = $this->pdo->prepare('SELECT * FROM post WHERE id > ? && id <= ?');
+        $selectStatement->execute([$from, $to]);
+        $result = $selectStatement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

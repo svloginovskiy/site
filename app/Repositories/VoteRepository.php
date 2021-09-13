@@ -14,17 +14,6 @@ class VoteRepository
         $this->pdo = $pdo;
     }
 
-    public function getById(string $number): ?Post
-    {
-        $getPostStatement = $this->pdo->prepare('SELECT * FROM post WHERE id=?');
-        $getPostStatement->execute([$number]);
-        $result = $getPostStatement->fetch(PDO::FETCH_LAZY);
-        if ($result === false) {
-            return null;
-        } else {
-            return new Post($result->id, $result->text, $result->title, $result->user_id, $result->rating);
-        }
-    }
 
     public function save($post_id, $user_id, $rating) //TODO
     {
