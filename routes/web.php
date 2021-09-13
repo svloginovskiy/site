@@ -69,7 +69,20 @@ function initRoutes(Container $container)
         $router->get(
             '/',
             function () use ($container) {
-                $container->create('app\Controllers\FrontpageController')->show();
+                $container->create('\app\Controllers\FrontpageController')->show();
+            }
+        );
+
+        $router->post(
+            '/posts/([1-9]\\d*)/upvote',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\PostController')->upvote($number);
+            }
+        );
+        $router->post(
+            '/posts/([1-9]\\d*)/downvote',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\PostController')->downvote($number);
             }
         );
 

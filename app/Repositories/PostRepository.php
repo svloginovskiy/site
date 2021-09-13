@@ -22,14 +22,14 @@ class PostRepository
         if ($result === false) {
             return null;
         } else {
-            return new Post($result->id, $result->text, $result->title, $result->user_id, $result->rating);
+            return new Post($result->id, $result->text, $result->title, $result->user_id);
         }
     }
 
     public function save(Post $post): int //TODO move to parent class Repository
     {
-        $insertPostStatement = $this->pdo->prepare('INSERT INTO post VALUES(?, ?, ?, ?, ?)');
-        $insertPostStatement->execute([0, $post->getText(), $post->getUserId(), $post->getTitle(), $post->getRating()]);
+        $insertPostStatement = $this->pdo->prepare('INSERT INTO post VALUES(?, ?, ?, ?)');
+        $insertPostStatement->execute([0, $post->getText(), $post->getUserId(), $post->getTitle()]);
         $countStatement = $this->pdo->prepare('SELECT count(id) FROM post');
         $countStatement->execute();
         $result = $countStatement->fetch();

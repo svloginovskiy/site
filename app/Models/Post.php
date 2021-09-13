@@ -8,15 +8,13 @@ class Post
     private $text;
     private $title;
     private $userId;
-    private $rating;
 
-    public function __construct(int $id, string $text, string $title, int $userId, int $rating)
+    public function __construct(int $id, string $text, string $title, int $userId)
     {
         $this->id = $id;
         $this->text = $text;
         $this->title = $title;
         $this->userId = $userId;
-        $this->rating = $rating;
     }
 
     public function getText(): string
@@ -34,8 +32,4 @@ class Post
         return $this->userId;
     }
 
-    public function getRating(): int
-    {
-        return $this->rating;
-    }
 }
