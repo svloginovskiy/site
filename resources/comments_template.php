@@ -19,14 +19,17 @@
             </form>
 
         </div>
-        <?php endif; ?>
-        <?php foreach ($comments as $comment): ?>
-        <div class="border col-md-auto rounded m-3 shadow" style="width: 40rem;">
+
+    </div>
+    <?php endif; ?>
+    <?php foreach ($comments as $comment): ?>
+    <div class="row justify-content-md-center">
+        <div class="border col-md-auto rounded mb-3 shadow " style="width: 40rem;">
             <h1><?= $comment['name']; ?></h1>
             <p><?= $comment['text']; ?></p>
         </div>
-        <?php endforeach; ?>
     </div>
+    <?php endforeach; ?>
 </div>
 
 
