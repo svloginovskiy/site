@@ -5,7 +5,7 @@ function initElement() {
     let ratingDiv = document.getElementById('rating');
     let rateUpIcon = rateUpDiv.firstElementChild;
     let rateDownIcon = rateDownDiv.firstElementChild;
-    let initialRating = parseInt(ratingDiv.textContent);
+
     let rateUpDivClicked = rateUpIcon.classList.contains('bi-arrow-up-square-fill');
     let rateDownDivClicked = rateDownIcon.classList.contains('bi-arrow-down-square-fill');
     console.log(rateUpDivClicked);
