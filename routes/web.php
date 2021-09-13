@@ -85,7 +85,12 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\PostController')->downvote($number);
             }
         );
-
+        $router->post(
+            '/posts/([1-9]\\d*)/comment',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\PostController')->comment($number);
+            }
+        );
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');

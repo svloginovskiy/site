@@ -2,6 +2,8 @@
 
 namespace app\Controllers;
 
+use app\Models\Comment;
+use app\Repositories\CommentRepository;
 use app\Repositories\PostRepository;
 use app\Repositories\VoteRepository;
 use app\Service\View;
@@ -11,12 +13,14 @@ class PostController
     private $view;
     private $postRepo;
     private $voteRepo;
+    private $commentRepo;
 
-    public function __construct(View $view, PostRepository $postRepo, VoteRepository $voteRepo)
+    public function __construct(View $view, PostRepository $postRepo, VoteRepository $voteRepo, CommentRepository $commentRepo)
     {
         $this->view = $view;
         $this->postRepo = $postRepo;
         $this->voteRepo = $voteRepo;
+        $this->commentRepo = $commentRepo;
     }
 
     public function show(int $number)
@@ -29,12 +33,16 @@ class PostController
             $text = $post->getText();
             $title = $post->getTitle();
             $rating = $this->voteRepo->getRatingByPostId($number);
+            $comments = $this->commentRepo->getCommentsByPostId($number);
 
             $vars = [
                 'VIEWTITLE' => $title,
                 'title' => $title,
                 'text' => $text,
-                'rating' => $rating
+                'rating' => $rating,
+                'post_id' => $number,
+                'isLoggedIn' => $_SESSION['logged_in'],
+                'comments' => $comments
             ];
             if ($_SESSION['logged_in']) {
                 $userRating = $this->voteRepo->getRatingByPostIdAndUserId($number, $_SESSION['user_id']);
@@ -51,9 +59,8 @@ class PostController
     public function upvote(int $post_id)
     {
         session_start();
-        if ($_SESSION[logged_in]) {
+        if ($_SESSION['logged_in']) {
             $user_id = $_SESSION['user_id'];
-            //$rating = $this->voteRepo->getRatingByPostIdAndUserId($post_id, $user_id);
             $this->voteRepo->save($post_id, $user_id, 1);
 
         }
@@ -63,12 +70,26 @@ class PostController
     public function downvote(int $post_id)
     {
         session_start();
-        if ($_SESSION[logged_in]) {
+        if ($_SESSION['logged_in']) {
             $user_id = $_SESSION['user_id'];
             $this->voteRepo->save($post_id, $user_id, -1);
 
         }
         echo $this->voteRepo->getRatingByPostId($post_id);
+    }
+
+    public function comment(int $post_id)
+    {
+        session_start();
+        if (!$_SESSION['logged_in']) {
+            return;
+        }
+        $user_id = $_SESSION['user_id'];
+        $text = htmlspecialchars($_POST['comment']);
+        $comment = new Comment(0, $post_id, $user_id, $text);
+        $this->commentRepo->save($comment);
+        header('Location: /posts/' . $post_id );
+
     }
 
 }
