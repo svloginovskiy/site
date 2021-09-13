@@ -31,6 +31,7 @@ class FrontpageController
             $rating = $this->voteRepo->getRatingByPostId($post['id']);
             $post['rating'] = $rating;
         }
+        $posts= array_reverse($posts);
         $vars = [
             'posts' => $posts
         ];
