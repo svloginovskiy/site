@@ -97,7 +97,7 @@ class PostController
             return;
         }
         $user_id = $_SESSION['user_id'];
-        $text = htmlspecialchars($_POST['comment']);
+        $text = trim(htmlspecialchars($_POST['comment']));
         if (!empty($text)) {
             $comment = new Comment(0, $post_id, $user_id, $text);
             $this->commentRepo->save($comment);
@@ -107,7 +107,7 @@ class PostController
 
     private function isTextValid(string $text): bool
     {
-        $MAX_TEXT_SIZE = 65000;
+        $MAX_TEXT_SIZE = 400;
         return strlen($text) < $MAX_TEXT_SIZE;
     }
 }
