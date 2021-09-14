@@ -19,7 +19,7 @@ function initElement() {
         upXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         upXhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         upXhr.onreadystatechange = function () {
-            if(upXhr.readyState == 4 && upXhr.status == 200) {
+            if (upXhr.readyState == 4 && upXhr.status == 200) {
                 ratingDiv.textContent = upXhr.responseText;
             }
         };
@@ -30,11 +30,11 @@ function initElement() {
         rateUpDivClicked = rateDownDivClicked ? false : rateUpDivClicked;
         let curPath = (new URL(document.URL)).pathname;
         let downXhr = new XMLHttpRequest();
-        downXhr.open('POST', curPath + '/downvote' , true);
+        downXhr.open('POST', curPath + '/downvote', true);
         downXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         downXhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         downXhr.onreadystatechange = function () {
-            if(downXhr.readyState == 4 && downXhr.status == 200) {
+            if (downXhr.readyState == 4 && downXhr.status == 200) {
                 ratingDiv.textContent = downXhr.responseText;
             }
         };

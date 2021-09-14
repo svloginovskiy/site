@@ -15,8 +15,12 @@ class PostController
     private $voteRepo;
     private $commentRepo;
 
-    public function __construct(View $view, PostRepository $postRepo, VoteRepository $voteRepo, CommentRepository $commentRepo)
-    {
+    public function __construct(
+        View $view,
+        PostRepository $postRepo,
+        VoteRepository $voteRepo,
+        CommentRepository $commentRepo
+    ) {
         $this->view = $view;
         $this->postRepo = $postRepo;
         $this->voteRepo = $voteRepo;
@@ -62,7 +66,6 @@ class PostController
         if ($_SESSION['logged_in']) {
             $user_id = $_SESSION['user_id'];
             $this->voteRepo->save($post_id, $user_id, 1);
-
         }
         echo $this->voteRepo->getRatingByPostId($post_id);
     }
@@ -73,7 +76,6 @@ class PostController
         if ($_SESSION['logged_in']) {
             $user_id = $_SESSION['user_id'];
             $this->voteRepo->save($post_id, $user_id, -1);
-
         }
         echo $this->voteRepo->getRatingByPostId($post_id);
     }
@@ -88,8 +90,12 @@ class PostController
         $text = htmlspecialchars($_POST['comment']);
         $comment = new Comment(0, $post_id, $user_id, $text);
         $this->commentRepo->save($comment);
-        header('Location: /posts/' . $post_id );
-
+        header('Location: /posts/' . $post_id);
     }
 
+    private function isTextValid(string $text): bool
+    {
+        $MAX_TEXT_SIZE = 65000;
+        return strlen($text) < $MAX_TEXT_SIZE;
+    }
 }

@@ -8,7 +8,7 @@
                             class="form-control border-0"
                             placeholder="Leave a comment"
                             id="postText"
-                            style="height: 10rem; resize: none" name="comment"></textarea>
+                            style="height: 10rem; resize: none" name="comment" required></textarea>
                     <div class="invalid-feedback">
                         Text should contain less than 65000 symbols!
                     </div>

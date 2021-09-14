@@ -14,8 +14,12 @@ class FrontpageController
     private $voteRepo;
     private $commentRepo;
 
-    public function __construct(View $view, PostRepository $postRepo, VoteRepository $voteRepo, CommentRepository $commentRepo)
-    {
+    public function __construct(
+        View $view,
+        PostRepository $postRepo,
+        VoteRepository $voteRepo,
+        CommentRepository $commentRepo
+    ) {
         $this->view = $view;
         $this->postRepo = $postRepo;
         $this->voteRepo = $voteRepo;
@@ -32,7 +36,7 @@ class FrontpageController
             $rating = $this->voteRepo->getRatingByPostId($post['id']);
             $post['rating'] = $rating;
         }
-        $posts= array_reverse($posts);
+        $posts = array_reverse($posts);
         $vars = [
             'posts' => $posts
         ];
