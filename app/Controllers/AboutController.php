@@ -15,6 +15,7 @@ class AboutController
 
     public function show()
     {
+        session_start();
         $this->view->render('about');
     }
 }

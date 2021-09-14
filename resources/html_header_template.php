@@ -6,6 +6,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="nav-link text-dark" href="/about">About</a>
                 <?php if ($_SESSION['logged_in']): ?>
                 <a class="btn btn-outline-dark" href="/submit">Submit</a>
                 <?php endif; ?>
