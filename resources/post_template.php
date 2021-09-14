@@ -7,13 +7,13 @@
             </article>
             <div class="d-flex">
                 <div class="ms-auto d-flex" id="rateDiv">
-                    <div class id="rateUpDiv">
+                    <div class id="<?= $_SESSION['logged_in'] ? 'rateUpDiv' : 'rateUpDivDisabled'; ?>"  >
                         <i class="bi <?= $isUpvoted ? 'bi-arrow-up-square-fill' : 'bi-arrow-up-square'; ?>"></i>
                     </div>
                     <div id="rating">
                         <?= $rating; ?>
                     </div>
-                    <div id="rateDownDiv">
+                    <div id="<?= $_SESSION['logged_in'] ? 'rateDownDiv' : 'rateDownDivDisabled'; ?>">
                         <i class="bi <?= isset($isUpvoted) ? ($isUpvoted ? 'bi-arrow-down-square' : 'bi-arrow-down-square-fill') : 'bi-arrow-down-square'; ?>"></i>
                     </div>
                 </div>
