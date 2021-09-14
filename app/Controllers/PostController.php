@@ -65,7 +65,12 @@ class PostController
         session_start();
         if ($_SESSION['logged_in']) {
             $user_id = $_SESSION['user_id'];
-            $this->voteRepo->save($post_id, $user_id, 1);
+            $oldRating = $this->voteRepo->getRatingByPostIdAndUserId($post_id, $user_id);
+            $newRating = 0;
+            if ($oldRating == 0 || $oldRating == -1) {
+                $newRating = 1;
+            }
+            $this->voteRepo->save($post_id, $user_id, $newRating);
         }
         echo $this->voteRepo->getRatingByPostId($post_id);
     }
@@ -75,7 +80,12 @@ class PostController
         session_start();
         if ($_SESSION['logged_in']) {
             $user_id = $_SESSION['user_id'];
-            $this->voteRepo->save($post_id, $user_id, -1);
+            $oldRating = $this->voteRepo->getRatingByPostIdAndUserId($post_id, $user_id);
+            $newRating = 0;
+            if ($oldRating == 0 || $oldRating == 1) {
+                $newRating = -1;
+            }
+            $this->voteRepo->save($post_id, $user_id, $newRating);
         }
         echo $this->voteRepo->getRatingByPostId($post_id);
     }
