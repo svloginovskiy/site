@@ -4,7 +4,7 @@
             <form class="form-floating pt-3" action="/submit" method="POST" enctype="multipart/form-data">
                 <div class="form-floating mb-1">
                     <input type="text"
-                           class="form-control border-0 fw-bold <?= isset($isTitleValid) ? ($isTitleValid ? 'is-valid' : 'is-invalid') : '' ?>"
+                           class="form-control border fw-bold <?= isset($isTitleValid) ? ($isTitleValid ? 'is-valid' : 'is-invalid') : '' ?>"
                            id="postTitle"
                            placeholder="Title" name="title" value="<?= $title ?? '' ?>"
                            required>
@@ -15,7 +15,7 @@
                 </div>
                 <div class="mb-3">
                     <textarea
-                            class="form-control border-0 <?= isset($isTextValid) ? ($isTextValid ? 'is-valid' : 'is-invalid') : '' ?>"
+                            class="form-control border <?= isset($isTextValid) ? ($isTextValid ? 'is-valid' : 'is-invalid') : '' ?>"
                             placeholder="Enter text"
                             id="postText"
                             style="height: 10rem; resize: none" name="text"><?= $text ?? '' ?></textarea>
