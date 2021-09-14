@@ -18,7 +18,10 @@
                            name="password" required>
                     <label for="passwordInput">Password</label>
                 </div>
-                <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary d-inline-block" >Submit</button>
+                    <div class="align-middle d-inline-block">Don't have an account? <a href="/signup">Sign up!</a></div>
+                </div>
             </form>
         </div>
     </div>
