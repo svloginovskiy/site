@@ -1,7 +1,7 @@
 <div class="container overflow-hidden">
     <div class="row justify-content-md-center">
+        <?php if ($isLoggedIn) : ?>
         <div class="submit-form col-md-auto border rounded m-3 shadow " style="width: 40rem;">
-            <?php if ($isLoggedIn) : ?>
             <form class="form-floating pt-3" action="/posts/<?= $post_id;?>/comment" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <textarea

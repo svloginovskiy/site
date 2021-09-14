@@ -98,8 +98,10 @@ class PostController
         }
         $user_id = $_SESSION['user_id'];
         $text = htmlspecialchars($_POST['comment']);
-        $comment = new Comment(0, $post_id, $user_id, $text);
-        $this->commentRepo->save($comment);
+        if (!empty($text)) {
+            $comment = new Comment(0, $post_id, $user_id, $text);
+            $this->commentRepo->save($comment);
+        }
         header('Location: /posts/' . $post_id);
     }
 
