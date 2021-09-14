@@ -7,7 +7,7 @@
                 <h1><?= $post['title']; ?></h1>
                 <?= $post['text']; ?>
             </article>
-            <div class="d-flex">
+            <div class="d-flex mb-3">
                 <div class="ms-auto d-flex" id="rateDiv">
                     <div id="rating">
                         <?= $post['rating']; ?>
