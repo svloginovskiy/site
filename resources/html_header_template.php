@@ -6,11 +6,13 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="nav-link btn btn-outline-dark" href="/submit">Submit</a>
+                <?php if ($_SESSION['logged_in']): ?>
+                <a class="btn btn-outline-dark" href="/submit">Submit</a>
+                <?php endif; ?>
                 <?php if (!$_SESSION['logged_in']): ?>
-                <a class="nav-link btn btn-dark ms-auto" href="/login">Log in</a>
+                <a class="btn btn-dark ms-auto" href="/login">Log in</a>
                 <?php else: ?>
-                <a class="nav-link btn btn-dark ms-auto" href="/logout">Log out</a>
+                <a class="btn btn-dark ms-auto" href="/logout">Log out</a>
                 <?php endif; ?>
             </div>
 
