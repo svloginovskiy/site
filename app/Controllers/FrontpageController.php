@@ -24,6 +24,7 @@ class FrontpageController
 
     public function show()
     {
+        session_start();
         $POSTS_NUM = 5;
         $postsCount = $this->postRepo->getPostsCount();
         $posts = $this->postRepo->getByIdRange($postsCount - $POSTS_NUM, $postsCount);
