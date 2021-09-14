@@ -9,14 +9,8 @@
             </article>
             <div class="d-flex">
                 <div class="ms-auto d-flex" id="rateDiv">
-                    <div class id="rateUpDiv">
-                        <i class="bi <?= $isUpvoted ? 'bi-arrow-up-square-fill' : 'bi-arrow-up-square'; ?>"></i>
-                    </div>
                     <div id="rating">
                         <?= $post['rating']; ?>
-                    </div>
-                    <div id="rateDownDiv">
-                        <i class="bi <?= isset($isUpvoted) ? ($isUpvoted ? 'bi-arrow-down-square' : 'bi-arrow-down-square-fill') : 'bi-arrow-down-square'; ?>"></i>
                     </div>
                 </div>
             </div>
