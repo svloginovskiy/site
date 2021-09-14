@@ -20,7 +20,7 @@ class LoginController
     {
         session_start();
         if ($_SESSION['logged_in']) {
-            header("Location: /submit"); //TODO
+            header("Location: /");
         } else {
             $this->view->render('login');
         }
