@@ -63,14 +63,14 @@ class PostController extends Controller
     public function upvote(int $post_id)
     {
         session_start();
-        if ($_SESSION['logged_in']) {
+        if ($this->authCheck->check()) {
             $user_id = $_SESSION['user_id'];
             $oldRating = $this->voteRepo->getRatingByPostIdAndUserId($post_id, $user_id);
             $newRating = 0;
             if ($oldRating == 0 || $oldRating == -1) {
                 $newRating = 1;
             }
-            $this->voteRepo->save($post_id, $user_id, $newRating);
+            $this->voteRepo->saveVote($post_id, $user_id, $newRating);
         }
         echo $this->voteRepo->getRatingByPostId($post_id);
     }
@@ -85,21 +85,20 @@ class PostController extends Controller
             if ($oldRating == 0 || $oldRating == 1) {
                 $newRating = -1;
             }
-            $this->voteRepo->save($post_id, $user_id, $newRating);
+            $this->voteRepo->saveVote($post_id, $user_id, $newRating);
         }
         echo $this->voteRepo->getRatingByPostId($post_id);
     }
 
     public function comment(int $post_id)
     {
-        session_start();
-        if (!$_SESSION['logged_in']) {
+        if (!$this->authCheck->check()) {
             return;
         }
         $user_id = $_SESSION['user_id'];
         $text = trim(htmlspecialchars($_POST['comment']));
         if ($this->isTextValid($text)) {
-            $comment = new Comment(0, $post_id, $user_id, $text);
+            $comment = (new Comment())->setId(0)->setPostId($post_id)->setUserId($user_id)->setText($text);
             $this->commentRepo->save($comment);
         }
         header('Location: /posts/' . $post_id);

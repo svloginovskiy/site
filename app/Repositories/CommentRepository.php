@@ -5,36 +5,19 @@ namespace app\Repositories;
 use app\Models\Comment;
 use PDO;
 
-class CommentRepository
+class CommentRepository extends Repository
 {
-    private $pdo;
-
     public function __construct(PDO $pdo)
     {
-        $this->pdo = $pdo;
+        parent::__construct($pdo, Comment::class, 'comment');
     }
 
-    public function getById(string $number): ?Post
+    public function getById(string $id)
     {
-        $getPostStatement = $this->pdo->prepare('SELECT * FROM post WHERE id=?');
-        $getPostStatement->execute([$number]);
-        $result = $getPostStatement->fetch(PDO::FETCH_LAZY);
-        if ($result === false) {
-            return null;
-        } else {
-            return new Post($result->id, $result->text, $result->title, $result->user_id);
-        }
+        return $this->getBy('id', $id);
     }
 
-    public function save(Comment $comment): int //TODO move to parent class Repository
-    {
-        $insertStatement = $this->pdo->prepare('INSERT INTO comment VALUES(?, ?, ?, ?)');
-        $insertStatement->execute([0, $comment->getPostId(), $comment->getUserId(), $comment->getText()]);
-        $countStatement = $this->pdo->prepare('SELECT count(id) FROM comment');
-        $countStatement->execute();
-        $result = $countStatement->fetch();
-        return $result[0];
-    }
+
     public function getCommentsByPostId($post_id)
     {
         $selectStatement = $this->pdo->prepare('SELECT user.name, comment.text FROM user JOIN comment ON user.id = comment.user_id WHERE comment.post_id = ?');

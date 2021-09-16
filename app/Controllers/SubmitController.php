@@ -42,12 +42,12 @@ class SubmitController extends Controller
             }
             $text = preg_replace('/\n(?!$)/', '</p><p>', $text);
             $text = '<p>' . $text . '</p>';
-            $userId = $_SESSION['user_id'];
+            $user_id = $_SESSION['user_id'];
             if ($this->handleUploadedFile() != null) {
                 $text .= "<img src=\"$imagesDir" . $_FILES['image']['name'] .
                     "\" class=\"img-fluid mb-3 mx-auto d-block\" alt=\"image\">";
             }
-            $post = new Post(0, $text, $title, $userId);
+            $post = (new Post())->setId(0)->setText($text)->setTitle($title)->setUserId($user_id);
             $id = $this->postRepo->save($post);
             Header('Location: /posts/' . $id);
         } else {

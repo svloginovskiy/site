@@ -39,8 +39,9 @@ class SignupController extends Controller
             $userByName == null && $userByEmail == null && $this->isNameValid($name) &&
             $this->isPasswordValid($password) && $this->isEmailValid($email)
         ) {
-
-            $user = new User(0, $name, $email, password_hash($password, PASSWORD_DEFAULT));
+            $user = (new User())->setId(0)->setName($name)->setEmail($email)->setPassword(
+                password_hash($password, PASSWORD_DEFAULT)
+            );
             $this->userRepo->save($user);
             $vars['name'] = $name;
             $this->view->render('signup_welcome', $vars);

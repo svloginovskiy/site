@@ -5,17 +5,15 @@ namespace app\Repositories;
 use app\Models\Post;
 use PDO;
 
-class VoteRepository
+class VoteRepository extends Repository
 {
-    private $pdo;
-
     public function __construct(PDO $pdo)
     {
-        $this->pdo = $pdo;
+        parent::__construct($pdo, '', 'vote');
     }
 
 
-    public function save($post_id, $user_id, $rating) //TODO
+    public function saveVote($post_id, $user_id, $rating) //TODO
     {
         $selectStatement = $this->pdo->prepare('SELECT id FROM vote WHERE user_id = ? && post_id = ?');
         $selectStatement->execute([$user_id, $post_id]);

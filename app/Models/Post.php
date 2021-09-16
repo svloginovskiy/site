@@ -7,14 +7,10 @@ class Post
     private $id;
     private $text;
     private $title;
-    private $userId;
+    private $user_id;
 
-    public function __construct(int $id, string $text, string $title, int $userId)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->text = $text;
-        $this->title = $title;
-        $this->userId = $userId;
     }
 
     public function getText(): string
@@ -29,7 +25,27 @@ class Post
 
     public function getUserId(): int
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
+    public function setId(string $id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    public function setText(string $text)
+    {
+        $this->text = $text;
+        return $this;
+    }
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+    public function setUserId(string $user_id)
+    {
+        $this->user_id = $user_id;
+        return $this;
+    }
 }

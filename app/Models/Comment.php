@@ -5,16 +5,12 @@ namespace app\Models;
 class Comment
 {
     private $id;
-    private $postId;
-    private $userId;
+    private $post_id;
+    private $user_id;
     private $text;
 
-    public function __construct(int $id, int $postId, int $userId, string $text)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->text = $text;
-        $this->postId = $postId;
-        $this->userId = $userId;
     }
 
     public function getText(): string
@@ -24,12 +20,33 @@ class Comment
 
     public function getPostId(): string
     {
-        return $this->postId;
+        return $this->post_id;
     }
 
     public function getUserId(): int
     {
-        return $this->userId;
+        return $this->user_id;
+    }
+
+    public function setId(string $id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    public function setText(string $text)
+    {
+        $this->text = $text;
+        return $this;
+    }
+    public function setPostId(string $post_id)
+    {
+        $this->post_id = $post_id;
+        return $this;
+    }
+    public function setUserId(string $user_id)
+    {
+        $this->user_id = $user_id;
+        return $this;
     }
 
 }
