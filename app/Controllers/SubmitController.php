@@ -5,22 +5,21 @@ namespace app\Controllers;
 use app\Models\Post;
 use app\Repositories\PostRepository;
 use app\Service\View;
+use app\Utility\AuthorizationInspector;
 
-class SubmitController
+class SubmitController extends Controller
 {
-    private $view;
     private $postRepo;
 
-    public function __construct(View $view, PostRepository $postRepo)
+    public function __construct(View $view, PostRepository $postRepo, AuthorizationInspector $authCheck)
     {
-        $this->view = $view;
+        parent::__construct($view, $authCheck);
         $this->postRepo = $postRepo;
     }
 
     public function show()
     {
-        session_start();
-        if ($_SESSION['logged_in']) {
+        if ($this->authCheck->check()) {
             $this->view->render('submit');
         } else {
             header('Location: /login');
@@ -29,9 +28,8 @@ class SubmitController
 
     public function savePost()
     {
-        session_start();
         $imagesDir = '/images/';
-        if ($_SESSION['logged_in']) {
+        if ($this->authCheck->check()) {
             $text = htmlspecialchars($_POST['text']);
             $title = htmlspecialchars($_POST['title']);
             $default_rating = 1;

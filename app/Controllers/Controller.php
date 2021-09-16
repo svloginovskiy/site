@@ -1,20 +1,20 @@
 <?php
 
+
 namespace app\Controllers;
+
 
 use app\Service\View;
 use app\Utility\AuthorizationInspector;
 
-class AboutController extends Controller
+class Controller
 {
+    protected $view;
+    protected $authCheck;
 
     public function __construct(View $view, AuthorizationInspector $authCheck)
     {
-        parent::__construct($view, $authCheck);
-    }
-
-    public function show()
-    {
-        $this->view->render('about');
+        $this->view = $view;
+        $this->authCheck = $authCheck;
     }
 }

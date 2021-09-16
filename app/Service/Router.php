@@ -45,6 +45,7 @@ class Router
 
     public function run()
     {
+        session_start();
         $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
         $path = $parsedUrl['path'];
         $path = rtrim($path, '/');

@@ -7,10 +7,10 @@ use app\Repositories\CommentRepository;
 use app\Repositories\PostRepository;
 use app\Repositories\VoteRepository;
 use app\Service\View;
+use app\Utility\AuthorizationInspector;
 
-class PostController
+class PostController extends Controller
 {
-    private $view;
     private $postRepo;
     private $voteRepo;
     private $commentRepo;
@@ -19,9 +19,10 @@ class PostController
         View $view,
         PostRepository $postRepo,
         VoteRepository $voteRepo,
-        CommentRepository $commentRepo
+        CommentRepository $commentRepo,
+        AuthorizationInspector $authCheck
     ) {
-        $this->view = $view;
+        parent::__construct($view, $authCheck);
         $this->postRepo = $postRepo;
         $this->voteRepo = $voteRepo;
         $this->commentRepo = $commentRepo;
@@ -29,7 +30,6 @@ class PostController
 
     public function show(int $number)
     {
-        session_start();
         $post = $this->postRepo->getById($number);
         if ($post == null) {
             $this->view->render('404');
@@ -48,7 +48,7 @@ class PostController
                 'isLoggedIn' => $_SESSION['logged_in'],
                 'comments' => $comments
             ];
-            if ($_SESSION['logged_in']) {
+            if ($this->authCheck->check()) {
                 $userRating = $this->voteRepo->getRatingByPostIdAndUserId($number, $_SESSION['user_id']);
                 if ($userRating == 1) {
                     $vars['isUpvoted'] = true;

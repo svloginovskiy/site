@@ -4,22 +4,21 @@ namespace app\Controllers;
 
 use app\Repositories\UserRepository;
 use app\Service\View;
+use app\Utility\AuthorizationInspector;
 
-class LoginController
+class LoginController extends Controller
 {
-    private $view;
     private $userRepo;
 
-    public function __construct(View $view, UserRepository $userRepo)
+    public function __construct(View $view, UserRepository $userRepo, AuthorizationInspector $authCheck)
     {
-        $this->view = $view;
+        parent::__construct($view, $authCheck);
         $this->userRepo = $userRepo;
     }
 
     public function show()
     {
-        session_start();
-        if ($_SESSION['logged_in']) {
+        if ($this->authCheck->check()) {
             header("Location: /");
         } else {
             $this->view->render('login');
@@ -28,7 +27,6 @@ class LoginController
 
     public function auth()
     {
-        session_start();
         $name = strtolower(trim($_POST['name']));
         $password = $_POST['password'];
         $user = $this->userRepo->getByName($name);

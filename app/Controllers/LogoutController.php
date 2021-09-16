@@ -2,16 +2,20 @@
 
 namespace app\Controllers;
 
-class LogoutController
+use app\Service\View;
+use app\Utility\AuthorizationInspector;
+
+class LogoutController extends Controller
 {
-    public function __construct()
+
+    public function __construct(View $view, AuthorizationInspector $authCheck)
     {
+        parent::__construct($view, $authCheck);
     }
 
     public function logout()
     {
-        session_start();
-        if ($_SESSION['logged_in']) {
+        if ($this->authCheck->check()) {
             session_unset();
         }
         header('Location: /');

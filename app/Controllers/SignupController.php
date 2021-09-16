@@ -5,22 +5,21 @@ namespace app\Controllers;
 use app\Models\User;
 use app\Repositories\UserRepository;
 use app\Service\View;
+use app\Utility\AuthorizationInspector;
 
-class SignupController
+class SignupController extends Controller
 {
-    private $view;
     private $userRepo;
 
-    public function __construct(View $view, UserRepository $userRepo)
+    public function __construct(View $view, UserRepository $userRepo, AuthorizationInspector $authCheck)
     {
-        $this->view = $view;
+        parent::__construct($view, $authCheck);
         $this->userRepo = $userRepo;
     }
 
     public function show()
     {
-        session_start();
-        if ($_SESSION['logged_in']) {
+        if ($this->authCheck->check()) {
             header('Location: /posts/1');
         } else {
             $this->view->render('signup');

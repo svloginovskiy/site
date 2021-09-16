@@ -6,10 +6,10 @@ use app\Repositories\CommentRepository;
 use app\Repositories\PostRepository;
 use app\Repositories\VoteRepository;
 use app\Service\View;
+use app\Utility\AuthorizationInspector;
 
-class FrontpageController
+class FrontpageController extends Controller
 {
-    private $view;
     private $postRepo;
     private $voteRepo;
     private $commentRepo;
@@ -18,9 +18,10 @@ class FrontpageController
         View $view,
         PostRepository $postRepo,
         VoteRepository $voteRepo,
-        CommentRepository $commentRepo
+        CommentRepository $commentRepo,
+        AuthorizationInspector $authCheck
     ) {
-        $this->view = $view;
+        parent::__construct($view, $authCheck);
         $this->postRepo = $postRepo;
         $this->voteRepo = $voteRepo;
         $this->commentRepo = $commentRepo;
@@ -28,7 +29,6 @@ class FrontpageController
 
     public function show(int $pageNum)
     {
-        session_start();
         $POSTS_NUM = 5;
         $postsCount = $this->postRepo->getPostsCount();
         $posts = $this->postRepo->getPostsByAmountAndOffset(
