@@ -41,13 +41,10 @@ class PostRepository
         return $result[0];
     }
 
-    public function getByIdRange(int $from, int $to)
+    public function getPostsByAmountAndOffset($amount, $offset)
     {
-        if ($from > $to) {
-            return null;
-        }
-        $selectStatement = $this->pdo->prepare('SELECT * FROM post WHERE id > ? && id <= ?');
-        $selectStatement->execute([$from, $to]);
+        $selectStatement = $this->pdo->prepare('SELECT * FROM post ORDER BY id DESC LIMIT ' . $offset . ', ' . $amount);
+        $selectStatement->execute();
         $result = $selectStatement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

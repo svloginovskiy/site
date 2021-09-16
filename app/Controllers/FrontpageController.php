@@ -31,15 +31,14 @@ class FrontpageController
         session_start();
         $POSTS_NUM = 5;
         $postsCount = $this->postRepo->getPostsCount();
-        $posts = $this->postRepo->getByIdRange(
-            $postsCount - $POSTS_NUM * $pageNum,
-            $postsCount - $POSTS_NUM * ($pageNum - 1)
+        $posts = $this->postRepo->getPostsByAmountAndOffset(
+            $POSTS_NUM,
+            ($pageNum - 1) * $POSTS_NUM
         );
         foreach ($posts as &$post) {
             $rating = $this->voteRepo->getRatingByPostId($post['id']);
             $post['rating'] = $rating;
         }
-        $posts = array_reverse($posts);
         $lastPageNum = intdiv($postsCount, $POSTS_NUM) + ($postsCount % $POSTS_NUM == 0 ? 0 : 1);
         $vars = [
             'posts' => $posts,
