@@ -10,8 +10,7 @@ function initElement()
 
         let rateUpDivClicked = rateUpIcon.classList.contains('bi-arrow-up-square-fill');
         let rateDownDivClicked = rateDownIcon.classList.contains('bi-arrow-down-square-fill');
-        console.log(rateUpDivClicked);
-        console.log(rateDownDivClicked);
+
         rateUpDiv.addEventListener('click', function (e) {
             rateUpDivClicked = !rateUpDivClicked;
             rateDownDivClicked = rateUpDivClicked ? false : rateDownDivClicked;
