@@ -43,7 +43,12 @@ class SearchController extends Controller
                 'rating' => $rating
             ];
         }
-        $vars = ['posts' => $posts];
-        $this->view->render('search', $vars);
+        if (empty($posts)) {
+            $vars = ['searchQuery' => $searchQuery];
+            $this->view->render('no_posts_found', $vars);
+        } else {
+            $vars = ['posts' => $posts];
+            $this->view->render('search', $vars);
+        }
     }
 }
