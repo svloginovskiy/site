@@ -5,7 +5,7 @@
                 <h1><?= $title; ?></h1>
                 <?= $text; ?>
             </article>
-            <div class="d-flex mb-3">
+            <div class="d-flex mb-2">
                 <div class="ms-auto d-flex " id="rateDiv">
                     <div class id="<?= $isLoggedIn ? 'rateUpDiv' : 'rateUpDivDisabled'; ?>"  >
                         <i class="bi <?= $isUpvoted ? 'bi-arrow-up-square-fill' : 'bi-arrow-up-square'; ?>"></i>

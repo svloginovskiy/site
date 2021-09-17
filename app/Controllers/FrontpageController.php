@@ -39,12 +39,22 @@ class FrontpageController extends Controller
             $POSTS_NUM,
             ($pageNum - 1) * $POSTS_NUM
         );
+        $user_id = $_SESSION['user_id'];
         foreach ($posts as &$post) {
             $rating = $this->voteRepo->getRatingByPostId($post['id']);
+            if ($this->authCheck->check()) {
+                $userRating = $this->voteRepo->getRatingByPostIdAndUserId($post['id'], $user_id);
+                if ($userRating == 1) {
+                    $post['isUpvoted'] = true;
+                } elseif ($userRating == -1) {
+                    $post['isUpvoted'] = false;
+                }
+            }
             $post['rating'] = $rating;
         }
         $vars = [
-            'posts' => $posts
+            'posts' => $posts,
+            'isLoggedIn' => $this->authCheck->check()
         ];
         $this->paginator->help($postsCount, $POSTS_NUM, $pageNum, $vars);
         $this->view->render('frontpage', $vars);
