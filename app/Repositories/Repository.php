@@ -58,9 +58,14 @@ class Repository
             'INSERT INTO ' . $this->table . $propsString . ' VALUES' . $valuesString
         );
         $insertStatement->execute();
-        $countStatement = $this->pdo->prepare('SELECT count(id) FROM ' . $this->table); //TODO Different way to get id
-        $countStatement->execute();
-        $result = $countStatement->fetch();
+        return $this->getLastId();
+    }
+
+    public function getLastId()
+    {
+        $selectStatement = $this->pdo->prepare('SELECT MAX(id) FROM ' . $this->table);
+        $selectStatement->execute();
+        $result = $selectStatement->fetch();
         return $result[0];
     }
 }
