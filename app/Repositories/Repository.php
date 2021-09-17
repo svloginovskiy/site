@@ -19,9 +19,11 @@ class Repository
         $this->table = $table;
     }
 
-    public function getBy(string $property, string $value)
+    public function getBy(string $property, string $value, bool $desc = true)
     {
-        $selectStatement = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $property . '=?');
+        $selectStatement = $this->pdo->prepare(
+            'SELECT * FROM ' . $this->table . ' WHERE ' . $property . '=? ORDER BY id ' . ($desc ? 'DESC' : 'ASC')
+        );
         $selectStatement->setFetchMode(PDO::FETCH_CLASS, $this->class);
         $selectStatement->execute([$value]);
 
@@ -31,6 +33,17 @@ class Repository
         } else {
             return $result;
         }
+    }
+
+    public function getByPattern(string $property, string $pattern, bool $desc = true)
+    {
+        $selectStatement = $this->pdo->prepare(
+            'SELECT * FROM ' . $this->table . ' WHERE ' . $property . ' LIKE ? ORDER BY id ' . ($desc ? 'DESC' : 'ASC')
+        );
+        $pattern = '%' . $pattern . '%';
+        $selectStatement->setFetchMode(PDO::FETCH_CLASS, $this->class);
+        $selectStatement->execute([$pattern]);
+        return $selectStatement->fetchAll();
     }
 
     public function save($obj)

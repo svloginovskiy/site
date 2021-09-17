@@ -96,6 +96,13 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\PostController')->comment($number);
             }
         );
+        $router->get(
+            '/search',
+            function () use ($container) {
+                $container->create('\app\Controllers\SearchController')->show();
+            }
+        );
+
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');

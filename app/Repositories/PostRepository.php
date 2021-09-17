@@ -33,4 +33,13 @@ class PostRepository extends Repository
         $result = $selectStatement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function getPostsByTitlePattern($pattern)
+    {
+        return $this->getByPattern('title', $pattern);
+    }
+    public function getPostsByTextPattern($pattern)
+    {
+        return $this->getByPattern('text', $pattern);
+    }
 }

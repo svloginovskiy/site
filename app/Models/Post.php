@@ -13,6 +13,10 @@ class Post
     {
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
     public function getText(): string
     {
         return $this->text;
