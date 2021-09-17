@@ -29,9 +29,7 @@ class SearchController extends Controller
     public function show()
     {
         $searchQuery = $_GET['q'];
-        $postsWithMatchedTitle = $this->postRepo->getPostsByTitlePattern($searchQuery);
-        $postsWithMatchedText = $this->postRepo->getPostsByTextPattern($searchQuery);
-        $postObjs = array_merge($postsWithMatchedTitle, $postsWithMatchedText);
+        $postObjs = $this->postRepo->getPostsByPattern($searchQuery);
         $posts = [];
         foreach ($postObjs as $post) {
             $rating = $this->voteRepo->getRatingByPostId($post->getId());

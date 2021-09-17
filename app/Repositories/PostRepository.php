@@ -42,4 +42,15 @@ class PostRepository extends Repository
     {
         return $this->getByPattern('text', $pattern);
     }
+
+    public function getPostsByPattern($pattern, $desc = true)
+    {
+        $selectStatement = $this->pdo->prepare(
+            'SELECT * FROM ' . $this->table . ' WHERE title LIKE ? OR text LIKE ? ORDER BY id ' . ($desc ? 'DESC' : 'ASC')
+        );
+        $pattern = '%' . $pattern . '%';
+        $selectStatement->setFetchMode(PDO::FETCH_CLASS, $this->class);
+        $selectStatement->execute([$pattern, $pattern]);
+        return $selectStatement->fetchAll();
+    }
 }
