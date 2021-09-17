@@ -45,7 +45,7 @@ class PostController extends Controller
                 'text' => $text,
                 'rating' => $rating,
                 'post_id' => $number,
-                'isLoggedIn' => $_SESSION['logged_in'],
+                'isLoggedIn' => $this->authCheck->check(),
                 'comments' => $comments
             ];
             if ($this->authCheck->check()) {
