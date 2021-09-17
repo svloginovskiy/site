@@ -1,6 +1,8 @@
+<script src="/js/posts_lists.js"></script>
+<div onload="initElement()" hidden></div>
 <?php foreach ($posts as $post) : ?>
     <div class="row justify-content-md-center">
-        <div class="border rounded m-3 shadow postCard" style="width: 40rem;">
+        <div class="border rounded m-3 shadow postCard" style="width: 40rem; cursor: pointer;">
             <article>
                 <a href="/posts/<?= $post['id']; ?>"></a>
                 <h1><?= $post['title']; ?></h1>

@@ -14,8 +14,4 @@ function initElement() {
             postCard.classList.toggle('shadow-lg');
         })
     });
-
 }
-
-
-
