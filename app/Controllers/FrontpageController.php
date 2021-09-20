@@ -30,15 +30,22 @@ class FrontpageController extends Controller
         $this->commentRepo = $commentRepo;
         $this->paginator = $paginator;
     }
-
-    public function show(int $pageNum)
+    public function show(int $pageNum, string $sortedBy)
     {
         $POSTS_NUM = 5;
         $postsCount = $this->postRepo->getPostsCount();
-        $posts = $this->postRepo->getPostsByAmountAndOffset(
-            $POSTS_NUM,
-            ($pageNum - 1) * $POSTS_NUM
-        );
+        $posts = [];
+        if ($sortedBy == 'time') {
+            $posts = $this->postRepo->getPostsByAmountAndOffset(
+                $POSTS_NUM,
+                ($pageNum - 1) * $POSTS_NUM
+            );
+        } elseif ($sortedBy == 'rating') {
+            $posts = $this->postRepo->getPostsSortedByRating(
+                $POSTS_NUM,
+                ($pageNum - 1) * $POSTS_NUM
+            );
+        }
         $user_id = $_SESSION['user_id'];
         foreach ($posts as &$post) {
             $rating = $this->voteRepo->getRatingByPostId($post['id']);
@@ -54,6 +61,7 @@ class FrontpageController extends Controller
         }
         $vars = [
             'posts' => $posts,
+            'sortedBy' => $sortedBy,
             'isLoggedIn' => $this->authCheck->check()
         ];
         $this->paginator->help($postsCount, $POSTS_NUM, $pageNum, $vars);

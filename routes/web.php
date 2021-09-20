@@ -69,13 +69,13 @@ function initRoutes(Container $container)
         $router->get(
             '',
             function () use ($container) {
-                $container->create('\app\Controllers\FrontpageController')->show(1);
+                $container->create('\app\Controllers\FrontpageController')->show(1, 'time');
             }
         );
         $router->get(
             '/([1-9]\\d*)',
             function ($number) use ($container) {
-                $container->create('\app\Controllers\FrontpageController')->show($number);
+                $container->create('\app\Controllers\FrontpageController')->show($number, 'time');
             }
         );
         $router->post(
@@ -102,6 +102,19 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\SearchController')->show();
             }
         );
+        $router->get(
+            '/top',
+            function () use ($container) {
+                $container->create('\app\Controllers\FrontpageController')->show(1, 'rating');
+            }
+        );
+        $router->get(
+            '/top/([1-9]\\d*)',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\FrontpageController')->show($number, 'rating');
+            }
+        );
+
 
         $router->pathNotFound(
             function () use ($container) {

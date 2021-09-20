@@ -34,10 +34,21 @@ class PostRepository extends Repository
         return $result;
     }
 
+    public function getPostsSortedByRating($amount, $offset)
+    {
+        $selectStatement = $this->pdo->prepare(
+            'SELECT SUM(COALESCE(vote.rating, 0)) as rating, post.id, post.text, post.user_id, post.title FROM vote RIGHT JOIN post ON vote.post_id=post.id GROUP BY post.id ORDER BY rating DESC LIMIT ' . $offset . ', ' . $amount
+        );
+        $selectStatement->execute();
+        $result = $selectStatement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getPostsByTitlePattern($pattern)
     {
         return $this->getByPattern('title', $pattern);
     }
+
     public function getPostsByTextPattern($pattern)
     {
         return $this->getByPattern('text', $pattern);
