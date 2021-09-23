@@ -48,14 +48,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Choose role</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Choose category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
                 <select class="form-select" form="roleFrom" required>
-                    <option value="admin">Admin</option>
-                    <option value="writer">Writer</option>
+                    <option value="news">News</option>
+                    <option value="memes">Memes</option>
                 </select>
 
             </div>

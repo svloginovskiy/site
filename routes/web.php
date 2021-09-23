@@ -144,6 +144,12 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\AdminpageController')->deletePost($number);
             }
         );
+        $router->post(
+            '/admin/posts/([1-9]\\d*)/edit',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->editPost($number);
+            }
+        );
         $router->get(
             '/u/(\w+)',
             function ($username) use ($container) {
@@ -162,6 +168,20 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\UserpageController')->editUser($username);
             }
         );
+        $router->get(
+            '/news',
+            function () use ($container) {
+                $container->create('\app\Controllers\CategoryController')->show('news');
+            }
+        );
+        $router->get(
+            '/memes',
+            function () use ($container) {
+                $container->create('\app\Controllers\CategoryController')->show('memes');
+            }
+        );
+
+
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');

@@ -28,8 +28,8 @@ function initElement() {
     let select = document.getElementsByTagName('select')[0];
     saveButton.addEventListener('click', function() {
         let xhr = new XMLHttpRequest();
-        let params = 'role=' + select.value;
-        xhr.open('POST', '/admin/users/' + lastEditButtonId + '/edit', true);
+        let params = 'category=' + select.value;
+        xhr.open('POST', '/admin/posts/' + lastEditButtonId + '/edit', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhr.onreadystatechange = function () {

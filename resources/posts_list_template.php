@@ -5,7 +5,7 @@
         <div class="border rounded m-3 shadow postCard" id="<?=$post['id']; ?>" style="width: 40rem;">
             <article style="cursor: pointer;">
                 <a href="/posts/<?= $post['id']; ?>"></a>
-                <h1><?= $post['title']; ?></h1>
+                <div class="d-flex"><h1><?= $post['title']; ?></h1> <h5 class="ms-auto"><small><?=$post['category']; ?></small></h5></div>
                 <?= $post['text']; ?>
             </article>
             <div class="d-flex mb-2">

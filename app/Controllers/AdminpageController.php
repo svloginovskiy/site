@@ -49,6 +49,10 @@ class AdminpageController extends Controller
     {
         if ($this->authCheck->requestedByAdmin()) {
             $posts = $this->postRepo->getPostsAndCreators();
+            foreach($posts as &$post) {
+                $category = $this->postRepo->getCategoryOfPost($post['id']);
+                $post['category'] = $category;
+            }
             $vars = ['posts' => $posts];
             $this->view->render('admin_posts', $vars);
         } else {
@@ -60,6 +64,13 @@ class AdminpageController extends Controller
     {
         if ($this->authCheck->requestedByAdmin()) {
             return $this->postRepo->deletePost($post_id);
+        }
+    }
+
+    public function editPost($post_id)
+    {
+        if ($this->authCheck->requestedByAdmin()) {
+            $this->postRepo->changeCategory($post_id, $_POST['category']);
         }
     }
 }

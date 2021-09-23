@@ -57,6 +57,8 @@ class FrontpageController extends Controller
                     $post['isUpvoted'] = false;
                 }
             }
+            $category = $this->postRepo->getCategoryOfPost($post['id']);
+            $post['category'] = $category;
             $post['rating'] = $rating;
         }
         $vars = [

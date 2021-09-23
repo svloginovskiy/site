@@ -84,4 +84,28 @@ class PostRepository extends Repository
         $selectStatement->execute([$username]);
         return $selectStatement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getPostsByCategoryName($category)
+    {
+        $selectStatement = $this->pdo->prepare('SELECT SUM(COALESCE(vote.rating, 0)) AS rating, post.id, post.text, post.title FROM vote RIGHT JOIN post ON post.id = vote.post_id JOIN category ON post.category_id=category.id WHERE category.name=? GROUP BY post.id ORDER BY id DESC');
+        $selectStatement->execute([$category]);
+        return $selectStatement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCategoryOfPost($id)
+    {
+        $selectStatement = $this->pdo->prepare('SELECT category.name FROM category JOIN post ON post.category_id=category.id WHERE post.id=?');
+        $selectStatement->execute([$id]);
+        return ($selectStatement->fetch())[0];
+    }
+
+    public function changeCategory($post_id, $category)
+    {
+        $selectStatement = $this->pdo->prepare('SELECT id FROM category WHERE name=?');
+        $selectStatement->execute([$category]);
+        $categoryId = ($selectStatement->fetch())[0];
+        $updateStatement = $this->pdo->prepare('UPDATE post SET category_id=? WHERE id=?');
+        $updateStatement->execute([$categoryId, $post_id]);
+        return $updateStatement->fetch();
+    }
 }

@@ -26,6 +26,10 @@ class UserpageController extends Controller
             $this->view->render('404');
         }
         $posts = $this->postRepo->getPostsByUsername($username);
+        foreach ($posts as &$post) {
+            $category = $this->postRepo->getCategoryOfPost($post['id']);
+            $post['category'] = $category;
+        }
         $vars = [
             'posts' => $posts,
             'username' => $username,
