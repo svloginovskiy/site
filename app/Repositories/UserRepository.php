@@ -60,5 +60,12 @@ class UserRepository extends Repository
         return $this->getBy('name', $username);
     }
 
+    public function updateUser($user)
+    {
+        $updateStatement = $this->pdo->prepare('UPDATE user SET name=?, email=?, password=?, description=?, avatar=? WHERE id=?');
+        $updateStatement->execute([$user->getName(), $user->getEmail(), $user->getPassword(), $user->getDescription(), $user->getAvatar(), $user->getId()]);
+        return $updateStatement->fetch();
+    }
+
 
 }

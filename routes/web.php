@@ -150,7 +150,18 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\UserpageController')->show($username);
             }
         );
-
+        $router->get(
+            '/u/(\w+)/settings',
+            function ($username) use ($container) {
+                $container->create('\app\Controllers\UserpageController')->showSettings($username);
+            }
+        );
+        $router->post(
+            '/u/(\w+)/settings/edit',
+            function ($username) use ($container) {
+                $container->create('\app\Controllers\UserpageController')->editUser($username);
+            }
+        );
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');

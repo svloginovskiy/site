@@ -9,6 +9,8 @@ class User
     private $email;
     private $password;
     private $role;
+    private $description;
+    private $avatar;
 
     public function __construct()
     {
@@ -33,6 +35,14 @@ class User
     public function getRole()
     {
         return $this->role;
+    }
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 
     public function setPassword(string $password)
@@ -61,6 +71,16 @@ class User
     public function setRole(string $role)
     {
         $this->role = $role;
+        return $this;
+    }
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+    public function setAvatar(string $avatar)
+    {
+        $this->avatar = $avatar;
         return $this;
     }
 }
