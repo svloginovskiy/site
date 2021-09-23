@@ -54,4 +54,6 @@ class UserRepository extends Repository
         $updateStatement->execute([$role, $user_id]);
         return $updateStatement->fetch();
     }
+
+
 }

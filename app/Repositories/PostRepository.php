@@ -64,4 +64,17 @@ class PostRepository extends Repository
         $selectStatement->execute([$pattern, $pattern]);
         return $selectStatement->fetchAll();
     }
+
+    public function getPostsAndCreators()
+    {
+        $selectStatement = $this->pdo->prepare('SELECT post.id, post.text, post.title, user.name AS user FROM post JOIN user ON post.user_id=user.id');
+        $selectStatement->execute();
+        return $selectStatement->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function deletePost($post_id)
+    {
+        $deleteStatement = $this->pdo->prepare('DELETE FROM post WHERE id=?');
+        $deleteStatement->execute([$post_id]);
+        return $deleteStatement->fetch();
+    }
 }

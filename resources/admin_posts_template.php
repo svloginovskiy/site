@@ -13,27 +13,27 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Created by</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
-                foreach ($users as $user) : ?>
+                foreach ($posts as $post) : ?>
                     <tr>
-                        <th scope="row"><?= $user['id']; ?></th>
-                        <td><?= $user['name']; ?></td>
-                        <td><?= $user['email']; ?></td>
-                        <td><?= $user['role']; ?></td>
+                        <th scope="row"><?= $post['title']; ?></th>
+                        <td><a href="/posts/<?= $post['id']; ?>">link</a></td>
+                        <td><?= $post['user']; ?></td>
+                        <td><?= $post['category']; ?></td>
                         <td>
-                            <button type="button" class="btn btn-primary deleteButton" id="<?= $user['id']; ?>">
+                            <button type="button" class="btn btn-primary deleteButton" id="<?= $post['id']; ?>">
                                 <i class="bi bi-trash-fill" title="Delete"></i>
                             </button>
                             <button type="button" class="btn btn-primary editButton" data-bs-toggle="modal"
-                                    data-bs-target="#editModal" id="<?= $user['id']; ?>">
+                                    data-bs-target="#editModal" id="<?= $post['id']; ?>">
                                 <i class="bi bi-pencil-fill" title="Edit"></i>
                             </button>
                         </td>
@@ -66,3 +66,4 @@
         </div>
     </div>
 </div>
+

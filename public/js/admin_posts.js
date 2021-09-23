@@ -3,7 +3,7 @@ function initElement() {
     deleteButtons.forEach(function (deleteButton) {
         deleteButton.addEventListener('click', function() {
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', '/admin/users/' + deleteButton.id + '/delete', true);
+            xhr.open('POST', '/admin/posts/' + deleteButton.id + '/delete', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.onreadystatechange = function () {
@@ -13,17 +13,16 @@ function initElement() {
 
             };
             xhr.send();
-
         });
     });
 
     let editButtons = document.querySelectorAll('.editButton');
     let lastEditButtonId = 0;
     editButtons.forEach(function (editButton) {
-       editButton.addEventListener('click', function()
-       {
-           lastEditButtonId = editButton.id;
-       });
+        editButton.addEventListener('click', function()
+        {
+            lastEditButtonId = editButton.id;
+        });
     });
     let saveButton = document.querySelectorAll('.saveButton')[0];
     let select = document.getElementsByTagName('select')[0];

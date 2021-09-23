@@ -127,9 +127,21 @@ function initRoutes(Container $container)
             }
         );
         $router->post(
-            '/admin/users/([1-9]\\d*)/changerole',
+            '/admin/users/([1-9]\\d*)/edit',
             function ($number) use ($container) {
                 $container->create('\app\Controllers\AdminpageController')->changeRole($number);
+            }
+        );
+        $router->get(
+            '/admin/posts',
+            function () use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->showPosts();
+            }
+        );
+        $router->post(
+            '/admin/posts/([1-9]\\d*)/delete',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->deletePost($number);
             }
         );
 
