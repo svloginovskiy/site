@@ -55,5 +55,10 @@ class UserRepository extends Repository
         return $updateStatement->fetch();
     }
 
+    public function getUserByName($username)
+    {
+        return $this->getBy('name', $username);
+    }
+
 
 }

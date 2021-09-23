@@ -77,4 +77,11 @@ class PostRepository extends Repository
         $deleteStatement->execute([$post_id]);
         return $deleteStatement->fetch();
     }
+
+    public function getPostsByUsername($username)
+    {
+        $selectStatement = $this->pdo->prepare('SELECT SUM(COALESCE(vote.rating, 0)) AS rating, post.id, post.text, post.title FROM vote RIGHT JOIN post ON post.id = vote.post_id JOIN user ON post.user_id=user.id WHERE user.name=? GROUP BY post.id ORDER BY id DESC;');
+        $selectStatement->execute([$username]);
+        return $selectStatement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

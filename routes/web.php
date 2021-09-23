@@ -144,6 +144,12 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\AdminpageController')->deletePost($number);
             }
         );
+        $router->get(
+            '/u/(\w+)',
+            function ($username) use ($container) {
+                $container->create('\app\Controllers\UserpageController')->show($username);
+            }
+        );
 
         $router->pathNotFound(
             function () use ($container) {
