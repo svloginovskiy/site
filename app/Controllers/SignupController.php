@@ -41,7 +41,7 @@ class SignupController extends Controller
         ) {
             $user = (new User())->setId(0)->setName($name)->setEmail($email)->setPassword(
                 password_hash($password, PASSWORD_DEFAULT)
-            );
+            )->setRole('writer');
             $this->userRepo->save($user);
             $vars['name'] = $name;
             $this->view->render('signup_welcome', $vars);

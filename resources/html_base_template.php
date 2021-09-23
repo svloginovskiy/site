@@ -21,7 +21,7 @@
     </style>
 </head>
 <body onload="initElement()">
-<main>
+<main class="h-100">
     <?php
     include $VIEWHEADER;
     include $VIEWBODY; ?>

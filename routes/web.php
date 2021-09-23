@@ -114,7 +114,24 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\FrontpageController')->show($number, 'rating');
             }
         );
-
+        $router->get(
+            '/admin/users',
+            function () use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->showUsers();
+            }
+        );
+        $router->post(
+            '/admin/users/([1-9]\\d*)/delete',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->deleteUser($number);
+            }
+        );
+        $router->post(
+            '/admin/users/([1-9]\\d*)/changerole',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->changeRole($number);
+            }
+        );
 
         $router->pathNotFound(
             function () use ($container) {
