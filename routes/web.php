@@ -120,6 +120,12 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\AdminpageController')->showUsers();
             }
         );
+        $router->get(
+            '/admin',
+            function () use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->showUsers();
+            }
+        );
         $router->post(
             '/admin/users/([1-9]\\d*)/delete',
             function ($number) use ($container) {
