@@ -16,7 +16,16 @@
                 <?php if (!$_SESSION['logged_in']): ?>
                 <a class="btn btn-dark ms-1" href="/login">Log in</a>
                 <?php else: ?>
-                <a class="btn btn-dark ms-1" href="/logout">Log out</a>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="/u/<?=$_SESSION['username']; ?>/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?=$_SESSION['username']; ?>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/u/<?=$_SESSION['username']; ?>/">My page</a></li>
+                        <li><a class="dropdown-item" href="/u/<?=$_SESSION['username']; ?>/settings">Settings</a></li>
+                        <li><a class="dropdown-item" href="/logout">Log out</a></li>
+                    </ul>
+                </div>
                 <?php endif; ?>
             </div>
 
