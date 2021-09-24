@@ -79,10 +79,9 @@ class UserpageController extends Controller
             $vars = [
                 'username' => $user->getName(),
                 'email' => $_FILES,
-                'description' => var_dump($_FILES)//$user->getDescription()
+                'description' => $user->getDescription()
             ];
-            var_dump($_FILES);
-            //header('Location: /u/' . $user->getName() . '/settings');
+            header('Location: /u/' . $user->getName() . '/settings');
         } else {
             $this->view->render('404');
         }
