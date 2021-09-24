@@ -1,7 +1,7 @@
 <div class="container overflow-hidden">
     <div class="row justify-content-md-center">
         <div class="col-md-auto border rounded m-3 shadow">
-            <form class="" action="/u/<?=$username; ?>/settings/edit" method="POST">
+            <form class="" action="/u/<?=$username; ?>/settings/edit" method="POST" enctype="multipart/form-data">
                 <h1 class="fw-bold">Settings</h1>
                 <div class="mb-3 row">
                     <label for="inputUsername" class="col-3">Username</label>
@@ -29,6 +29,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Upload your avatar image</label>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="10000000"/>
                     <input class="form-control" type="file" id="formFile" name="image" accept="image/*">
                 </div>
                 <div class="mb-3">

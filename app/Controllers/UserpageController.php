@@ -72,15 +72,17 @@ class UserpageController extends Controller
 
             if ($this->handleUploadedFile() != null) {
                 $user->setAvatar($avatarDir . $_FILES['image']['name']);
+
             }
 
             $this->userRepo->updateUser($user);
             $vars = [
                 'username' => $user->getName(),
-                'email' => $user->getEmail(),
-                'description' => $user->getDescription()
+                'email' => $_FILES,
+                'description' => var_dump($_FILES)//$user->getDescription()
             ];
-            header('Location: /u/' . $user->getName() . '/settings');
+            var_dump($_FILES);
+            //header('Location: /u/' . $user->getName() . '/settings');
         } else {
             $this->view->render('404');
         }
