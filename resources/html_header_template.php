@@ -10,6 +10,9 @@
                 <?php if ($_SESSION['logged_in']): ?>
                 <a class="btn btn-outline-dark" href="/submit">Submit</a>
                 <?php endif; ?>
+                <?php if ($_SESSION['user_admin']): ?>
+                    <a class="btn btn-warning ms-1" href="/admin">Admin page</a>
+                <?php endif; ?>
                 <form class="d-flex ms-auto" action="/search">
                     <input class="form-control" type="search" placeholder="Search" name="q">
                 </form>

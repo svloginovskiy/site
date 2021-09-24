@@ -36,6 +36,9 @@ class LoginController extends Controller
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $name;
             $_SESSION['user_id'] = $user->getId();
+            if ($user->getRole() == 'admin') {
+                $_SESSION['user_admin'] = true;
+            }
             header('Location: /login');
         } else {
             $this->view->render('login', ['authFailed' => true]);

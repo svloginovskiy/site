@@ -21,7 +21,13 @@ class Paginator
             $vars['current'] = 2;
             $vars['next'] = 3;
             $vars['prevActive'] = true;
-        } elseif ($pageNum == $lastPageNum) {
+            if ($lastPageNum <= 2) {
+                $vars['nextDisabled'] = true;
+            }
+            if ($lastPageNum == 1) {
+                $vars['curDisabled'] = true;
+            }
+        } elseif ($pageNum == $lastPageNum && $lastPageNum != 2) {
             $vars['prev'] = $pageNum - 2;
             $vars['current'] = $pageNum - 1;
             $vars['next'] = $pageNum;
@@ -30,6 +36,9 @@ class Paginator
             $vars['prev'] = $pageNum - 1;
             $vars['current'] = $pageNum;
             $vars['next'] = $pageNum + 1;
+            if ($lastPageNum <= 2) {
+                $vars['nextDisabled'] = true;
+            }
             $vars['curActive'] = true;
         }
     }

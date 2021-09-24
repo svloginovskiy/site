@@ -117,13 +117,19 @@ function initRoutes(Container $container)
         $router->get(
             '/admin/users',
             function () use ($container) {
-                $container->create('\app\Controllers\AdminpageController')->showUsers();
+                $container->create('\app\Controllers\AdminpageController')->showUsers(1);
+            }
+        );
+        $router->get(
+            '/admin/users/([1-9]\\d*)',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->showUsers($number);
             }
         );
         $router->get(
             '/admin',
             function () use ($container) {
-                $container->create('\app\Controllers\AdminpageController')->showUsers();
+                $container->create('\app\Controllers\AdminpageController')->show();
             }
         );
         $router->post(
@@ -141,7 +147,13 @@ function initRoutes(Container $container)
         $router->get(
             '/admin/posts',
             function () use ($container) {
-                $container->create('\app\Controllers\AdminpageController')->showPosts();
+                $container->create('\app\Controllers\AdminpageController')->showPosts(1);
+            }
+        );
+        $router->get(
+            '/admin/posts/([1-9]\\d*)',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\AdminpageController')->showPosts($number);
             }
         );
         $router->post(
@@ -177,13 +189,25 @@ function initRoutes(Container $container)
         $router->get(
             '/news',
             function () use ($container) {
-                $container->create('\app\Controllers\CategoryController')->show('news');
+                $container->create('\app\Controllers\CategoryController')->show(1, 'news');
+            }
+        );
+        $router->get(
+            '/news/([1-9]\\d*)',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\CategoryController')->show($number, 'news');
             }
         );
         $router->get(
             '/memes',
             function () use ($container) {
-                $container->create('\app\Controllers\CategoryController')->show('memes');
+                $container->create('\app\Controllers\CategoryController')->show(1, 'memes');
+            }
+        );
+        $router->get(
+            '/memes/([1-9]\\d*)',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\CategoryController')->show($number, 'memes');
             }
         );
 

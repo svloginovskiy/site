@@ -21,12 +21,14 @@ class UserRepository extends Repository
     {
         return $this->getBy('email', $email);
     }
+
     public function getById(string $id): ?User
     {
         return $this->getBy('id', $id);
     }
 
-    public function getUsersWithoutPassword() {
+    public function getUsersWithoutPassword()
+    {
         $selectStatement = $this->pdo->prepare('SELECT id, name, email, role FROM user');
         $selectStatement->execute();
         $result = $selectStatement->fetchAll(PDO::FETCH_ASSOC);
@@ -62,10 +64,28 @@ class UserRepository extends Repository
 
     public function updateUser($user)
     {
-        $updateStatement = $this->pdo->prepare('UPDATE user SET name=?, email=?, password=?, description=?, avatar=? WHERE id=?');
-        $updateStatement->execute([$user->getName(), $user->getEmail(), $user->getPassword(), $user->getDescription(), $user->getAvatar(), $user->getId()]);
+        $updateStatement = $this->pdo->prepare(
+            'UPDATE user SET name=?, email=?, password=?, description=?, avatar=? WHERE id=?'
+        );
+        $updateStatement->execute(
+            [
+                $user->getName(),
+                $user->getEmail(),
+                $user->getPassword(),
+                $user->getDescription(),
+                $user->getAvatar(),
+                $user->getId()
+            ]
+        );
         return $updateStatement->fetch();
     }
 
+    public function getUsersCount()
+    {
+        $selectStatement = $this->pdo->prepare('SELECT COUNT(id) FROM user');
+        $selectStatement->execute([]);
+        $result = $selectStatement->fetch();
+        return $result[0];
+    }
 
 }

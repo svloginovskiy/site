@@ -5,5 +5,7 @@
         </div>
     </div>
     <?php
-    include 'posts_list_template.php'; ?>
+    include 'posts_list_template.php';
+    include 'pagination_template.php';?>
+
 </div>

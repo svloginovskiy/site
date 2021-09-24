@@ -117,4 +117,31 @@ class PostRepository extends Repository
         $updateStatement->execute([$categoryId, $post_id]);
         return $updateStatement->fetch();
     }
+
+    public function getPostsCountByCategory($category)
+    {
+        $selectStatement = $this->pdo->prepare(
+            'SELECT COUNT(post.id) FROM post JOIN category ON post.category_id=category.id WHERE category.name=?'
+        );
+        $selectStatement->execute([$category]);
+        $result = $selectStatement->fetch();
+        return $result[0];
+    }
+
+    public function getPostsByCategoryNameWithAmountAndOffset($category, $amount, $offset)
+    {
+        $selectStatement = $this->pdo->prepare('SELECT  SUM(COALESCE(vote.rating, 0)) AS rating, post.* FROM vote RIGHT JOIN post ON post.id=vote.post_id JOIN category ON post.category_id=category.id WHERE category.name = ? GROUP BY post.id ORDER BY id DESC LIMIT ' . $offset . ', ' . $amount);
+        $selectStatement->execute([$category]);
+        $result = $selectStatement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getPostsAndCreatorsWithAmountAndOffset(int $amount, int $offset)
+    {
+        $selectStatement = $this->pdo->prepare(
+            'SELECT post.id, post.text, post.title, user.name AS user FROM post JOIN user ON post.user_id=user.id ORDER BY post.id DESC LIMIT ' . $offset . ', ' . $amount
+        );
+        $selectStatement->execute();
+        return $selectStatement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

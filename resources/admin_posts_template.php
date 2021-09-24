@@ -41,6 +41,7 @@
                 <?php
                 endforeach; ?>
             </table>
+            <?php include 'pagination_template.php'; ?>
         </div>
     </div>
 </div>
