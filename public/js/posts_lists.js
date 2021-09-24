@@ -90,3 +90,6 @@ function initElement() {
     });
 
 }
+function categoryLink(ev) {
+    location.href='';
+}

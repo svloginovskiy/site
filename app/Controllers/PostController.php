@@ -38,6 +38,7 @@ class PostController extends Controller
             $title = $post->getTitle();
             $rating = $this->voteRepo->getRatingByPostId($number);
             $comments = $this->commentRepo->getCommentsByPostId($number);
+            $category = $this->postRepo->getCategoryOfPost($number);
 
             $vars = [
                 'VIEWTITLE' => $title,
@@ -46,7 +47,8 @@ class PostController extends Controller
                 'rating' => $rating,
                 'post_id' => $number,
                 'isLoggedIn' => $this->authCheck->check(),
-                'comments' => $comments
+                'comments' => $comments,
+                'category' => $category
             ];
             if ($this->authCheck->check()) {
                 $userRating = $this->voteRepo->getRatingByPostIdAndUserId($number, $_SESSION['user_id']);

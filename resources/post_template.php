@@ -2,6 +2,7 @@
     <div class="row justify-content-md-center">
         <div class="border rounded m-3 shadow" style="width: 40rem;">
             <article>
+                <div class="d-flex"> <h6 class="small" "><a href="/<?=$category; ?>"><?=$category; ?></a></h6></div>
                 <h1><?= $title; ?></h1>
                 <?= $text; ?>
             </article>
