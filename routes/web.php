@@ -210,7 +210,9 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\CategoryController')->show($number, 'memes');
             }
         );
-
+        $router->get('/u/(\w+)/settings/change-password', function ($username) use ($container) {
+           $container->create('\app\Controllers\ChangePasswordController')->show($username);
+        });
 
         $router->pathNotFound(
             function () use ($container) {

@@ -18,7 +18,7 @@
                 <div class="mb-3 row">
                     <label for="inputPassword" class="col-3">Password</label>
                     <div class="col-9">
-                        <input type="password" class="form-control" name="password" id="inputPassword">
+                        <a href="/u/<?=$username; ?>/settings/change-password">Change password</a>
                     </div>
                 </div>
                 <div class="mb-3 row">
