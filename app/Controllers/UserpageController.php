@@ -12,8 +12,12 @@ class UserpageController extends Controller
     private $postRepo;
     private $userRepo;
 
-    public function __construct(View $view, AuthorizationInspector $authCheck, PostRepository $postRepo, UserRepository $userRepo)
-    {
+    public function __construct(
+        View $view,
+        AuthorizationInspector $authCheck,
+        PostRepository $postRepo,
+        UserRepository $userRepo
+    ) {
         parent::__construct($view, $authCheck);
         $this->postRepo = $postRepo;
         $this->userRepo = $userRepo;
@@ -33,7 +37,8 @@ class UserpageController extends Controller
         $vars = [
             'posts' => $posts,
             'username' => $username,
-            'description' => $user->getDescription()
+            'description' => $user->getDescription(),
+            'avatar' => $user->getAvatar()
         ];
         $this->view->render('userpage', $vars);
     }
@@ -72,15 +77,9 @@ class UserpageController extends Controller
 
             if ($this->handleUploadedFile() != null) {
                 $user->setAvatar($avatarDir . $_FILES['image']['name']);
-
             }
-
             $this->userRepo->updateUser($user);
-            $vars = [
-                'username' => $user->getName(),
-                'email' => $_FILES,
-                'description' => $user->getDescription()
-            ];
+
             header('Location: /u/' . $user->getName() . '/settings');
         } else {
             $this->view->render('404');
