@@ -211,9 +211,11 @@ function initRoutes(Container $container)
             }
         );
         $router->get('/u/(\w+)/settings/change-password', function ($username) use ($container) {
-           $container->create('\app\Controllers\ChangePasswordController')->show($username);
+            $container->create('\app\Controllers\ChangePasswordController')->show($username);
         });
-
+        $router->get('/json/posts', function () use ($container) {
+            $container->create('\app\Controllers\JsonPostsController')->respond();
+        });
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');

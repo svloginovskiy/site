@@ -18,5 +18,4 @@ class ChangePasswordController extends Controller
         $this->userRepo = $userRepo;
     }
 
-
 }

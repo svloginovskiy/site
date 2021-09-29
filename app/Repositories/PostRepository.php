@@ -130,7 +130,9 @@ class PostRepository extends Repository
 
     public function getPostsByCategoryNameWithAmountAndOffset($category, $amount, $offset)
     {
-        $selectStatement = $this->pdo->prepare('SELECT  SUM(COALESCE(vote.rating, 0)) AS rating, post.* FROM vote RIGHT JOIN post ON post.id=vote.post_id JOIN category ON post.category_id=category.id WHERE category.name = ? GROUP BY post.id ORDER BY id DESC LIMIT ' . $offset . ', ' . $amount);
+        $selectStatement = $this->pdo->prepare(
+            'SELECT  SUM(COALESCE(vote.rating, 0)) AS rating, post.* FROM vote RIGHT JOIN post ON post.id=vote.post_id JOIN category ON post.category_id=category.id WHERE category.name = ? GROUP BY post.id ORDER BY id DESC LIMIT ' . $offset . ', ' . $amount
+        );
         $selectStatement->execute([$category]);
         $result = $selectStatement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
