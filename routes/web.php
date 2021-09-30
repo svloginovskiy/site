@@ -210,12 +210,30 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\CategoryController')->show($number, 'memes');
             }
         );
-        $router->get('/u/(\w+)/settings/change-password', function ($username) use ($container) {
-            $container->create('\app\Controllers\ChangePasswordController')->show($username);
-        });
-        $router->get('/json/posts', function () use ($container) {
-            $container->create('\app\Controllers\JsonPostsController')->respond();
-        });
+        $router->get(
+            '/u/(\w+)/settings/change-password',
+            function ($username) use ($container) {
+                $container->create('\app\Controllers\ChangePasswordController')->show($username);
+            }
+        );
+        $router->get(
+            '/json/posts',
+            function () use ($container) {
+                $container->create('\app\Controllers\JsonPostsController')->respond();
+            }
+        );
+        $router->get(
+            '/json/users',
+            function () use ($container) {
+                $container->create('\app\Controllers\JsonUsersController')->respond();
+            }
+        );
+        $router->get(
+            '/newadmin',
+            function () use ($container) {
+                $container->create('\app\Controllers\NewAdminController')->show();
+            }
+        );
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');

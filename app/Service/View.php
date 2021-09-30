@@ -23,4 +23,9 @@ class View
             unset($var);
         }
     }
+
+    public function renderReact()
+    {
+        include self::RES_DIR . 'build/index.html';
+    }
 }
