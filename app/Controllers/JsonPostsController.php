@@ -29,7 +29,6 @@ class JsonPostsController extends Controller
             $posts = $this->postRepo->getPostsAndCreatorsWithAmountAndOffset($limit, ($page - 1) * $limit);
             foreach ($posts as &$post) {
                 $category = $this->postRepo->getCategoryOfPost($post['id']);
-                unset($post['text']);
                 $post['category'] = $category;
             }
             echo json_encode($posts);

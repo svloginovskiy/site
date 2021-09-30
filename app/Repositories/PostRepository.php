@@ -146,4 +146,13 @@ class PostRepository extends Repository
         $selectStatement->execute();
         return $selectStatement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function updatePost(array $post)
+    {
+        $selectStatement = $this->pdo->prepare('SELECT id FROM category WHERE name=?');
+        $selectStatement->execute([$post['category']]);
+        $categoryId = $selectStatement->fetch()[0];
+        $updateStatement = $this->pdo->prepare('UPDATE post SET title=?, text=?, category_id=? where id=?');
+        $updateStatement->execute([$post['title'], $post['text'], $categoryId, $post['id']]);
+    }
 }

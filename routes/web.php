@@ -234,6 +234,18 @@ function initRoutes(Container $container)
                 $container->create('\app\Controllers\NewAdminController')->show();
             }
         );
+        $router->post(
+            '/newadmin/posts/([1-9]\\d*)/edit',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\NewAdminController')->editPost($number);
+            }
+        );
+        $router->post(
+            '/newadmin/users/([1-9]\\d*)/edit',
+            function ($number) use ($container) {
+                $container->create('\app\Controllers\NewAdminController')->editUser($number);
+            }
+        );
         $router->pathNotFound(
             function () use ($container) {
                 $container->create('\app\Service\View')->render('404');

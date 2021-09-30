@@ -87,5 +87,4 @@ class UserRepository extends Repository
         $result = $selectStatement->fetch();
         return $result[0];
     }
-
 }
