@@ -155,4 +155,65 @@ class PostRepository extends Repository
         $updateStatement = $this->pdo->prepare('UPDATE post SET title=?, text=?, category_id=? where id=?');
         $updateStatement->execute([$post['title'], $post['text'], $categoryId, $post['id']]);
     }
+
+    public function getPostsByCategories(array $categories, int $amount, int $offset, string $sortedBy)
+    {
+        $whereStr = '';
+        foreach ($categories as $category) {
+            $whereStr .= ' name=\'' . $category . '\' OR ';
+        }
+        if (!empty($whereStr)) {
+            $whereStr = substr($whereStr, 0, strlen($whereStr) - 3);
+        }
+        $idsStatement = $this->pdo->prepare('SELECT id FROM category WHERE ' . $whereStr);
+        $idsStatement->execute();
+        $ids = $idsStatement->fetchAll(PDO::FETCH_ASSOC);
+        $idsStr = '';
+        foreach ($ids as $id) {
+            $idsStr .= ' category_id=' . $id['id'] . ' OR ';
+        }
+
+        if (!empty($idsStr)) {
+            $idsStr = substr($idsStr, 0, strlen($idsStr) - 3);
+        }
+        $selectStatement = null;
+        if ($sortedBy === 'time') {
+            $selectStatement = $this->pdo->prepare(
+                'SELECT * FROM post WHERE ' . $idsStr . ' ORDER BY id DESC LIMIT ' . $offset . ', ' . $amount
+            );
+
+        } else {
+            $selectStatement = $this->pdo->prepare(
+                'SELECT SUM(COALESCE(vote.rating, 0)) as rating, post.* FROM vote RIGHT JOIN post ON vote.post_id=post.id WHERE ' . $idsStr . ' GROUP BY post.id ORDER BY rating DESC LIMIT ' . $offset . ', ' . $amount
+            );
+        }
+        $selectStatement->execute([]);
+        return $selectStatement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getPostsCountByCategories(array $categories)
+    {
+        $whereStr = '';
+        foreach ($categories as $category) {
+            $whereStr .= ' name=\'' . $category . '\' OR ';
+        }
+        if (!empty($whereStr)) {
+            $whereStr = substr($whereStr, 0, strlen($whereStr) - 3);
+        }
+        $idsStatement = $this->pdo->prepare('SELECT id FROM category WHERE ' . $whereStr);
+        $idsStatement->execute();
+        $ids = $idsStatement->fetchAll(PDO::FETCH_ASSOC);
+        $idsStr = '';
+        foreach ($ids as $id) {
+            $idsStr .= ' category_id=' . $id['id'] . ' OR ';
+        }
+
+        if (!empty($idsStr)) {
+            $idsStr = substr($idsStr, 0, strlen($idsStr) - 3);
+        }
+        $selectStatement = $this->pdo->prepare('SELECT COUNT(id) FROM post WHERE ' . $idsStr);
+        $selectStatement->execute([]);
+        return $selectStatement->fetch()[0];
+    }
+
 }

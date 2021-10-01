@@ -30,20 +30,32 @@ class FrontpageController extends Controller
         $this->commentRepo = $commentRepo;
         $this->paginator = $paginator;
     }
+
     public function show(int $pageNum, string $sortedBy)
     {
         $POSTS_NUM = 5;
         $postsCount = $this->postRepo->getPostsCount();
         $posts = [];
-        if ($sortedBy == 'time') {
-            $posts = $this->postRepo->getPostsByAmountAndOffset(
+        $categories = $this->getCategoriesFromCookies();
+        if (empty($categories)) {
+            if ($sortedBy == 'time') {
+                $posts = $this->postRepo->getPostsByAmountAndOffset(
+                    $POSTS_NUM,
+                    ($pageNum - 1) * $POSTS_NUM
+                );
+            } elseif ($sortedBy == 'rating') {
+                $posts = $this->postRepo->getPostsSortedByRating(
+                    $POSTS_NUM,
+                    ($pageNum - 1) * $POSTS_NUM
+                );
+            }
+        } else {
+            $postsCount = $this->postRepo->getPostsCountByCategories($categories);
+            $posts = $this->postRepo->getPostsByCategories(
+                $categories,
                 $POSTS_NUM,
-                ($pageNum - 1) * $POSTS_NUM
-            );
-        } elseif ($sortedBy == 'rating') {
-            $posts = $this->postRepo->getPostsSortedByRating(
-                $POSTS_NUM,
-                ($pageNum - 1) * $POSTS_NUM
+                ($pageNum - 1) * $POSTS_NUM,
+                $sortedBy
             );
         }
         $user_id = $_SESSION['user_id'] ?? '';
@@ -53,7 +65,8 @@ class FrontpageController extends Controller
                 $userRating = $this->voteRepo->getRatingByPostIdAndUserId($post['id'], $user_id);
                 if ($userRating == 1) {
                     $post['isUpvoted'] = true;
-                } elseif ($userRating == -1) {
+                } elseif
+                ($userRating == -1) {
                     $post['isUpvoted'] = false;
                 }
             }
@@ -64,10 +77,20 @@ class FrontpageController extends Controller
         $vars = [
             'posts' => $posts,
             'sortedBy' => $sortedBy,
-            'isLoggedIn' => $this->authCheck->check()
+            'isLoggedIn' => $this->authCheck->check(),
+            'categories' => $categories
         ];
         $this->paginator->help($postsCount, $POSTS_NUM, $pageNum, $vars);
         $this->view->render('frontpage', $vars);
     }
 
+    private
+    function getCategoriesFromCookies()
+    {
+        $categories = [];
+        if (isset($_COOKIE['categories'])) {
+            $categories = explode('&', $_COOKIE['categories']);
+        }
+        return $categories;
+    }
 }
