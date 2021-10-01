@@ -23,7 +23,11 @@ class NewAdminController extends Controller
 
     public function show()
     {
-        $this->view->renderReact();
+        if ($this->authCheck->requestedByAdmin()) {
+            $this->view->renderReact();
+        } else {
+            $this->view->render('404');
+        }
     }
 
     public function editPost($id)
@@ -36,7 +40,6 @@ class NewAdminController extends Controller
         ];
 
         $this->postRepo->updatePost($post);
-        echo($_POST['id'] . " " . $_POST['text'] . " " .$_POST['title'] . " " . $_POST['category']);
     }
 
     public function editUser($id)

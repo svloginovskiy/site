@@ -11,7 +11,7 @@
                 <a class="btn btn-outline-dark" href="/submit">Submit</a>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']): ?>
-                    <a class="btn btn-warning ms-1" href="/admin">Admin page</a>
+                    <a class="btn btn-warning ms-1" href="/newadmin">Admin page</a>
                 <?php endif; ?>
                 <form class="d-flex ms-auto" action="/search">
                     <input class="form-control" type="search" placeholder="Search" name="q">

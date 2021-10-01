@@ -19,7 +19,7 @@ class JsonUsersController extends Controller
 
     public function respond()
     {
-        if (true || $this->authCheck->requestedByAdmin()) {
+        if ($this->authCheck->requestedByAdmin()) {
             header('Content-Type: application/json');
             $totalCount = $this->userRepo->getUsersCount();
             header('x-total-count: ' . $totalCount);
