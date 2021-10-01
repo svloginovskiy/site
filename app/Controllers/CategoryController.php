@@ -36,7 +36,7 @@ class CategoryController extends Controller
             $POSTS_NUM,
             ($pageNum - 1) * $POSTS_NUM
         );
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['user_id'] ?? '';
         foreach ($posts as &$post) {
             $post['category'] = $category;
             if ($this->authCheck->check()) {

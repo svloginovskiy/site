@@ -4,7 +4,7 @@
             <form class="form-floating " action="/login" method="POST">
                 <h1 class="fw-bold">Log in</h1>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control <?= $authFailed ? 'is-invalid' : '' ?>" id="usernameInput"
+                    <input type="text" class="form-control <?= isset($authFailed) && $authFailed ? 'is-invalid' : '' ?>" id="usernameInput"
                            placeholder="username" name="name"
                            required>
                     <label for="usernameInput">Username</label>
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control <?= $authFailed ? 'is-invalid' : '' ?>"
+                    <input type="password" class="form-control <?= isset($authFailed) && $authFailed ? 'is-invalid' : '' ?>"
                            id="passwordInput" placeholder="password"
                            name="password" required>
                     <label for="passwordInput">Password</label>
