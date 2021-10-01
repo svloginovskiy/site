@@ -26,6 +26,6 @@ class View
 
     public function renderReact()
     {
-        include self::RES_DIR . 'build/index.html';
+        include self::RES_DIR . 'build/index.php';
     }
 }

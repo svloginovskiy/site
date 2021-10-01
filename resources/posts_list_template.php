@@ -12,7 +12,7 @@
             <div class="d-flex mb-2">
                 <div class="ms-auto d-flex rateDiv">
                     <div class="<?= $isLoggedIn  ? 'rateUpDiv' : 'rateUpDivDisabled'; ?>"  >
-                        <i class="bi <?= $post['isUpvoted'] ? 'bi-arrow-up-square-fill' : 'bi-arrow-up-square'; ?>"></i>
+                        <i class="bi <?= isset($post['isUpvoted']) && $post['isUpvoted'] ? 'bi-arrow-up-square-fill' : 'bi-arrow-up-square'; ?>"></i>
                     </div>
                     <div class="rating">
                         <?= $post['rating']; ?>

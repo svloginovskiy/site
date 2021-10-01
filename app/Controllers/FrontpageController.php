@@ -46,7 +46,7 @@ class FrontpageController extends Controller
                 ($pageNum - 1) * $POSTS_NUM
             );
         }
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['user_id'] ?? '';
         foreach ($posts as &$post) {
             $rating = $this->voteRepo->getRatingByPostId($post['id']);
             if ($this->authCheck->check()) {

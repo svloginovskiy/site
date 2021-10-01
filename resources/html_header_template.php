@@ -7,16 +7,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <a class="nav-link text-dark" href="/about">About</a>
-                <?php if ($_SESSION['logged_in']): ?>
+                <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
                 <a class="btn btn-outline-dark" href="/submit">Submit</a>
                 <?php endif; ?>
-                <?php if ($_SESSION['user_admin']): ?>
+                <?php if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']): ?>
                     <a class="btn btn-warning ms-1" href="/admin">Admin page</a>
                 <?php endif; ?>
                 <form class="d-flex ms-auto" action="/search">
                     <input class="form-control" type="search" placeholder="Search" name="q">
                 </form>
-                <?php if (!$_SESSION['logged_in']): ?>
+                <?php if (!isset($_SESSION['logged_in']) ||!$_SESSION['logged_in']): ?>
                 <a class="btn btn-dark ms-1" href="/login">Log in</a>
                 <?php else: ?>
                 <div class="dropdown">

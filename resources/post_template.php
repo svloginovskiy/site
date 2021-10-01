@@ -8,8 +8,8 @@
             </article>
             <div class="d-flex mb-2">
                 <div class="ms-auto d-flex " id="rateDiv">
-                    <div class id="<?= $isLoggedIn ? 'rateUpDiv' : 'rateUpDivDisabled'; ?>"  >
-                        <i class="bi <?= $isUpvoted ? 'bi-arrow-up-square-fill' : 'bi-arrow-up-square'; ?>"></i>
+                    <div class id="<?= isset($isLoggedIn) && $isLoggedIn ? 'rateUpDiv' : 'rateUpDivDisabled'; ?>"  >
+                        <i class="bi <?= (isset($isUpvoted) && $isUpvoted ? 'bi-arrow-up-square-fill' : 'bi-arrow-up-square'; ?>"></i>
                     </div>
                     <div id="rating">
                         <?= $rating; ?>

@@ -5,8 +5,8 @@
                 <div class="align-middle d-inline-block">Sorted by</div>
                 <div class="d-inline-block">
                     <select onchange="handleSelect();" class=" form-select" style="width: ">
-                        <option <?= $sortedBy == 'time' ? 'selected' : ''; ?> value="time">Time</option>
-                        <option <?= $sortedBy == 'rating' ? 'selected' : ''; ?> value="rating">Rating</option>
+                        <option <?= isset($sortedBy) && $sortedBy == 'time' ? 'selected' : ''; ?> value="time">Time</option>
+                        <option <?= isset($sortedBy) && $sortedBy == 'rating' ? 'selected' : ''; ?> value="rating">Rating</option>
                     </select>
                 </div>
             </div>
@@ -19,13 +19,13 @@
             <li class="page-item">
                 <a class="page-link" href="/<?= $sortedBy == 'rating' ? 'top/' : ''; ?>">&laquo;</a>
             </li>
-            <li class="page-item <?= $prevActive ? 'active' : ''; ?>"><a class="page-link"
+            <li class="page-item <?= isset($prevActive) && $prevActive ? 'active' : ''; ?>"><a class="page-link"
                                                                          href="/<?= $sortedBy == 'rating' ? 'top/' : ''; ?><?= $prev; ?>"><?= $prev; ?></a>
             </li>
-            <li class="page-item <?= $curActive ? 'active' : ''; ?>"><a class="page-link"
+            <li class="page-item <?= isset($curActive) && $curActive ? 'active' : ''; ?>"><a class="page-link"
                                                                         href="/<?= $sortedBy == 'rating' ? 'top/' : ''; ?><?= $current; ?>"><?= $current; ?></a>
             </li>
-            <li class="page-item <?= $nextActive ? 'active' : ''; ?>"><a class="page-link"
+            <li class="page-item <?= isset($nextActive) && $nextActive ? 'active' : ''; ?>"><a class="page-link"
                                                                          href="/<?= $sortedBy == 'rating' ? 'top/' : ''; ?><?= $next; ?>"><?= $next; ?></a>
             </li>
             <li class="page-item">

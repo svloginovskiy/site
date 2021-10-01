@@ -28,7 +28,7 @@ class Container
             if (null !== $constructor) {
                 $parameters = $constructor->getParameters();
 
-                $constructParamsArr = $this->rules[$name]['constructParams'];
+                $constructParamsArr = $this->rules[$name]['constructParams'] ?? null;
 
                 $invokedParams = $this->getInstancesOfParameters($name, $parameters, $constructParamsArr);
             }
